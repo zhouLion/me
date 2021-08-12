@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhoulion.github.io/me/</id>
+    <title>Gridea</title>
+    <updated>2021-08-12T01:25:38.792Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhoulion.github.io/me/"/>
+    <link rel="self" href="https://zhoulion.github.io/me/atom.xml"/>
+    <subtitle>温故而知新</subtitle>
+    <logo>https://zhoulion.github.io/me/images/avatar.png</logo>
+    <icon>https://zhoulion.github.io/me/favicon.ico</icon>
+    <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[TypeScript 中的内置范型]]></title>
+        <id>https://zhoulion.github.io/me/post/typescript-zhong-de-nei-zhi-fan-xing/</id>
+        <link href="https://zhoulion.github.io/me/post/typescript-zhong-de-nei-zhi-fan-xing/">
+        </link>
+        <updated>2021-08-12T00:16:15.000Z</updated>
+        <content type="html"><![CDATA[<p><code>Typescript</code> 的 lib 文件夹中，定义了 <code>EcmaScript</code> 从 es5 到 esnext 的各个 es 类型签名，还包括 dom。其中，在 <code>lib/lib.es5.d.ts</code> 文件中，还定义了 ts 自己内置的范型工具类型。</p>
+<p>下面是从中提取的代码片段，针对注释进行的简单翻译.</p>
+<pre><code class="language-typescript">/**
+ * 让 T 类型中的所有的属性都是可选
+ */
+type Partial&lt;T&gt; = {
+    [P in keyof T]?: T[P];
+};
+
+/**
+ * 使 T 类型中所有属性都是必需的
+ */
+type Required&lt;T&gt; = {
+    [P in keyof T]-?: T[P];
+};
+
+/**
+ * 使 T 类型中所有的属性只读
+ */
+type Readonly&lt;T&gt; = {
+    readonly [P in keyof T]: T[P];
+};
+
+/**
+ * 就是从 T 类型中，选择一组键在 K 中的并集
+ * - Pick&lt;T, K&gt; 就是拾取的意思，就是从 T 类型对象中拾取部分的属性, 其中 K 是字符枚举类型
+ */
+type Pick&lt;T, K extends keyof T&gt; = {
+    [P in K]: T[P];
+};
+
+/**
+ * 构建一个类型，其中 K 属性 key，对应的属性值是 T 类型
+ * 这个理解起来很抽象，🌰 vue 的 option api 用到了很多 Record&lt;T, K&gt; 范型
+ * 如 components?: Record&lt;string, Component&gt;
+      directives?: Record&lt;string, Directive&gt;
+ */
+type Record&lt;K extends keyof any, T&gt; = {
+    [P in K]: T;
+};
+
+/**
+ * 从T中排除那些可分配给U的类型
+ * 主要用途就是从 T 类型中提取不在 U 枚举中的 key，作为一个新的枚举
+ */
+type Exclude&lt;T, U&gt; = T extends U ? never : T;
+
+/**
+ * 从 T 类型中提取那些可分配给 U 的类型
+ * 从源码中也能看出来，它的使用场景和 Exclude 刚好相反。
+ * 目的和 Pick 类似，但是 Pick 关注于提取一个新的对象类型，而 Extract 在于提取枚举类型
+ */
+type Extract&lt;T, U&gt; = T extends U ? T : never;
+
+/**
+ * 构建一个类型，提取 T 类型中的 K 属性的反集
+ * Omit 意为删除， 它和 Pick 作用相反，把对象 T 中的 K 属性都排除掉。
+ */
+type Omit&lt;T, K extends keyof any&gt; = Pick&lt;T, Exclude&lt;keyof T, K&gt;&gt;;
+
+/**
+ * 排除 T 类型中所有的 null 和 undefined
+ */
+type NonNullable&lt;T&gt; = T extends null | undefined ? never : T;
+
+/**
+ * 获取一个函数类型的参数类型，放在一个 tuple 元组内
+ * 这样提取一个方法的入参类型，可以很方便的去定义到另一个函数的参数类型
+ */
+type Parameters&lt;T extends (...args: any) =&gt; any&gt; = T extends (...args: infer P) =&gt; any ? P : never;
+
+/**
+ * 获取一个构造函数类型的参数类型，放在一个 tuple 元组内
+ * 如果我们的构造函数是以 class 的范式去书写的，那么这个辅助范型就很有用
+ */
+type ConstructorParameters&lt;T extends abstract new (...args: any) =&gt; any&gt; = T extends abstract new (...args: infer P) =&gt; any ? P : never;
+
+/**
+ * 返回一个函数类型的返回值类型
+ * 很容易理解。结合 Parameters 就可以把一个以后的函数类型拆开来，较少很多重复的类型声明
+ */
+type ReturnType&lt;T extends (...args: any) =&gt; any&gt; = T extends (...args: any) =&gt; infer R ? R : any;
+
+/**
+ * 获取一个构造函数类型的返回值类型
+ * 这个真的很少用到，因为构造函数的类型返回值类型，往往就是构造函数本身。
+ * 除非一种情形，构造函数里返回了一个新的对象。因为根据 JS 对构造函数返回值的规定，构造函数的 return 值，通常会被忽略，除非是高级类型，如对象，数组
+ */
+type InstanceType&lt;T extends abstract new (...args: any) =&gt; any&gt; = T extends abstract new (...args: any) =&gt; infer R ? R : any;
+
+/**
+ * Convert string literal type to uppercase
+ */
+type Uppercase&lt;S extends string&gt; = intrinsic;
+
+/**
+ * Convert string literal type to lowercase
+ */
+type Lowercase&lt;S extends string&gt; = intrinsic;
+
+/**
+ * Convert first character of string literal type to uppercase
+ */
+type Capitalize&lt;S extends string&gt; = intrinsic;
+
+/**
+ * Convert first character of string literal type to lowercase
+ */
+type Uncapitalize&lt;S extends string&gt; = intrinsic;
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Hello Gridea]]></title>
+        <id>https://zhoulion.github.io/me/post/hello-gridea/</id>
+        <link href="https://zhoulion.github.io/me/post/hello-gridea/">
+        </link>
+        <updated>2018-12-11T16:00:00.000Z</updated>
+        <summary type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
+✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
+<!-- more -->
+<p><a href="https://github.com/getgridea/gridea">Github</a><br>
+<a href="https://gridea.dev/">Gridea 主页</a><br>
+<a href="http://fehey.com/">示例网站</a></p>
+<h2 id="特性">特性👇</h2>
+<p>📝  你可以使用最酷的 <strong>Markdown</strong> 语法，进行快速创作</p>
+<p>🌉  你可以给文章配上精美的封面图和在文章任意位置插入图片</p>
+<p>🏷️  你可以对文章进行标签分组</p>
+<p>📋  你可以自定义菜单，甚至可以创建外部链接菜单</p>
+<p>💻  你可以在 <strong>Windows</strong>，<strong>MacOS</strong> 或 <strong>Linux</strong> 设备上使用此客户端</p>
+<p>🌎  你可以使用 <strong>𝖦𝗂𝗍𝗁𝗎𝖻 𝖯𝖺𝗀𝖾𝗌</strong> 或 <strong>Coding Pages</strong> 向世界展示，未来将支持更多平台</p>
+<p>💬  你可以进行简单的配置，接入 <a href="https://github.com/gitalk/gitalk">Gitalk</a> 或 <a href="https://github.com/SukkaW/DisqusJS">DisqusJS</a> 评论系统</p>
+<p>🇬🇧  你可以使用<strong>中文简体</strong>或<strong>英语</strong></p>
+<p>🌁  你可以任意使用应用内默认主题或任意第三方主题，强大的主题自定义能力</p>
+<p>🖥  你可以自定义源文件夹，利用 OneDrive、百度网盘、iCloud、Dropbox 等进行多设备同步</p>
+<p>🌱 当然 <strong>Gridea</strong> 还很年轻，有很多不足，但请相信，它会不停向前 🏃</p>
+<p>未来，它一定会成为你离不开的伙伴</p>
+<p>尽情发挥你的才华吧！</p>
+<p>😘 Enjoy~</p>
+]]></content>
+    </entry>
+</feed>
