@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" >
 
-<title>Gridea</title>
+<title>变量提升和暂时性死区 | Gridea</title>
 <meta name="description" content="温故而知新">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -32,6 +32,7 @@
 
   </head>
   <body>
+  
     <nav class="navbar border fixed split-nav">
   <div class="nav-brand">
     <h3><a href="https://zhoulion.github.io/me">Gridea</a></h3>
@@ -85,115 +86,108 @@
   </div>
 </nav>
 
-
     <div id="top" class="row site">
       <div class="sm-12 md-8 col">
         <div class="paper">
+          <article class="article">
+            <h1>变量提升和暂时性死区</h1>
+            <p class="article-meta">
+              2021-08-12
+              
+            </p>
+            
+            <div class="post-content">
+              <p><code>Variable hoisting</code> <code>Temporal Dead Zone</code></p>
+<blockquote>
+<p>对于一个变量，没有任何理由多此一举地在定义它之前去调用它</p>
+</blockquote>
+<h2 id="变量提升-variable-hoisting">变量提升 (Variable hoisting)</h2>
+<p>变量提升可以简单地理解为，变量声明被移动到函数块的最顶端。<br>
+就像下面的代码</p>
+<pre><code class="language-js">function test() {
+    console.log(myVar);
+    var myVar = 10;
+    console.log(myVar);
+}
+test();
+
+// Output
+//&gt; undefined
+//&gt; 10
+</code></pre>
+<p>执行的时候，变量被解释器偷偷地提升了</p>
+<pre><code class="language-js">function test() {
+    var myVar;
+    console.log(myVar);
+    myVar = 10;
+    console.log(myVar);
+}
+test();
+</code></pre>
+<h2 id="变量提升的简单流程">变量提升的简单流程</h2>
+<p>Javascript 执行代码都要分两个阶段，「创建阶段」(creation phase) 和 「执行阶段」(execution phase)。</p>
+<ul>
+<li>创建阶段：函数调用前，JS 引擎进行上下文的扫描，收集函数能访问的数据范围，即<strong>作用域</strong>，并且专门开辟一块内存空间，用来存储函数的 <code>function scope</code> 函数作用域，解释器将进行它们的值初始化为 <code>undefined</code>。</li>
+<li>执行阶段：JS 引擎在函数执行期间，是从这块内存空间里，去读去写这里面的数据。<br>
+所以看起来就好像所有的变量声明被提升了一样。</li>
+</ul>
+<h2 id="let-const">let &amp; const</h2>
+<p>let 和 const 是 es6 的新特性，值得注意的是，let 和 const 所声明的变量，似乎不会被提升了。</p>
+<pre><code class="language-js">function test() {
+    console.log(myVar);
+    let myVar = 10;
+    console.log(myVar);
+}
+test(); // Output
+//\&gt; VM94:2 Uncaught ReferenceError: Cannot access 'myVar' before initialization
+//    at test (&lt;anonymous&gt;:2:14)
+//   at &lt;anonymous&gt;:6:1
+</code></pre>
+<p><code>reference error</code>  报错：作用域范围错误<br>
+相同的代码，我们使用 <code>let</code> 或 <code>const</code> 去替代 <code>var</code> 去声明一个变量，我们不能在变量声明之前去访问它了。<br>
+这就引申出<strong>暂时性死区（Temporal Dead Zone）</strong> 的概念了。</p>
+<h2 id="暂时性死区-temporal-dead-zone">暂时性死区 (Temporal Dead Zone)</h2>
+<p>我们将暂时性死区，定义为<strong>变量出现在作用域范围内，但是却不能被访问的状态</strong>。<br>
+所以，这是不是意味这 <code>let</code> 和 <code>const</code> 不会在创建阶段，加入到那块内存呢？<br>
+其实都会加入到内存中，进行一个初始化。只不过<code>var</code> 所声明的变量会被初始化为 <code>undefined</code>  ，而 <code>let</code> 和 <code>const</code> 不被赋值（甚至连 <code>undefined</code> 都不是）</p>
+<pre><code class="language-js">function test() {
+    // 随意打印一个未曾定义的变量
+    console.log(typeof myUndefinedVariable);
+    // 打印以下 let 声明的变量
+    console.log(typeof myVar);
+    let myVar = 10;
+}
+test();// Output
+\&gt; undefined
+\&gt; VM114:3 Uncaught ReferenceError: Cannot access 'myVar' before initialization
+    at test (&lt;anonymous&gt;:3:10)
+    at &lt;anonymous&gt;:6:1
+</code></pre>
+<h2 id="思考">思考🤔</h2>
+<p>暂时性死区似乎是引入了 bug？其实这是 ES6 有意而为之。实际上就是「无规矩不成方圆」。<br>
+JS 这门语言如果一味地追求灵活性，「纵容」开发者写出不合乎常理的代码，却不会对其进行相应的「惩罚」，长久下去，将阻碍 JS 标准的制定。<br>
+这就是 ES6 引入 let 和 const 的原因。对于一个变量，没有任何理由多此一举地在定义它之前去调用它。</p>
+
+            </div>
+          </article>
+        </div>
+        <div class="paper" data-aos="fade-in">
           
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://zhoulion.github.io/me/post/bian-liang-ti-sheng-he-zan-shi-xing-si-qu/">变量提升和暂时性死区</a>
-    </h2>
-    <p class="article-meta">
-      2021-08-12
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://zhoulion.github.io/me/post/bian-liang-ti-sheng-he-zan-shi-xing-si-qu/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://zhoulion.github.io/me/post/40-ge-you-qu-de-css-wang-zhan/">40 个有趣的 CSS 网站</a>
-    </h2>
-    <p class="article-meta">
-      2021-08-12
-      
-        <a href="https://zhoulion.github.io/me/tag/THiJ1HA27/" class="badge warning">
-          CSS
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://zhoulion.github.io/me/post/40-ge-you-qu-de-css-wang-zhan/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://zhoulion.github.io/me/post/typescript-zhong-de-nei-zhi-fan-xing/">TypeScript 中的内置范型</a>
-    </h2>
-    <p class="article-meta">
-      2021-08-12
-      
-        <a href="https://zhoulion.github.io/me/tag/hMeMKz_xs/" class="badge warning">
-          typescript
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      
-    </p>
-    <div class="row">
-      <a href="https://zhoulion.github.io/me/post/typescript-zhong-de-nei-zhi-fan-xing/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
-
-  <article class="article">
-    <h2 class="article-title">
-      <a href="https://zhoulion.github.io/me/post/hello-gridea/">Hello Gridea</a>
-    </h2>
-    <p class="article-meta">
-      2018-12-12
-      
-        <a href="https://zhoulion.github.io/me/tag/EHgytQqzx/" class="badge secondary">
-          Gridea
-        </a>
-      
-    </p>
-    <p class="text-lead">
-      <p>👏  欢迎使用 <strong>Gridea</strong> ！<br>
-✍️  <strong>Gridea</strong> 一个静态博客写作客户端。你可以用它来记录你的生活、心情、知识、笔记、创意... ...</p>
-
-    </p>
-    <div class="row">
-      <a href="https://zhoulion.github.io/me/post/hello-gridea/" class="readmore-link">
-        <button>
-          Read More
-        </button>
-      </a>
-    </div>
-  </article>
-
-
+            <div class="next-post">
+              <div class="next">
+                下一篇
+              </div>
+              <a href="https://zhoulion.github.io/me/post/40-ge-you-qu-de-css-wang-zhan/">
+                <h3 class="post-title">
+                  40 个有趣的 CSS 网站
+                </h3>
+              </a>
+            </div>
+          
         </div>
         
-        <div class="row flex-edges">
-  
-  
-</div>
-
       </div>
-      
+
       <div class="sm-12 md-4 col sidebar">
   <div class="paper info-container">
     <img src="https://zhoulion.github.io/me/images/avatar.png?v=1628735412227" class="no-responsive avatar">
@@ -266,7 +260,7 @@
           typescript
         </a>
       
-        <a href="https://zhoulion.github.io/me/tag/EHgytQqzx/" class="badge warning">
+        <a href="https://zhoulion.github.io/me/tag/EHgytQqzx/" class="badge secondary">
           Gridea
         </a>
       
@@ -277,7 +271,9 @@
   </div>
 </div>
 
+
     </div>
+
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
 
 <script type="application/javascript">
