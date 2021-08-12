@@ -1,15 +1,130 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://zhoulion.github.io/me/</id>
+    <id>https://zhoulion.github.io/me</id>
     <title>Gridea</title>
-    <updated>2021-08-12T01:45:18.446Z</updated>
+    <updated>2021-08-12T01:52:56.177Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://zhoulion.github.io/me/"/>
+    <link rel="alternate" href="https://zhoulion.github.io/me"/>
     <link rel="self" href="https://zhoulion.github.io/me/atom.xml"/>
     <subtitle>温故而知新</subtitle>
     <logo>https://zhoulion.github.io/me/images/avatar.png</logo>
     <icon>https://zhoulion.github.io/me/favicon.ico</icon>
     <rights>All rights reserved 2021, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[40 个有趣的 CSS 网站]]></title>
+        <id>https://zhoulion.github.io/me/post/40-ge-you-qu-de-css-wang-zhan/</id>
+        <link href="https://zhoulion.github.io/me/post/40-ge-you-qu-de-css-wang-zhan/">
+        </link>
+        <updated>2021-08-12T01:51:24.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>🌐  基础学习</p>
+<p><a href="https://cssreference.io/">CSS Reference</a></p>
+<p>CSS 参考书</p>
+<p><a href="https://chokcoco.github.io/CSS-Inspiration/#/">cssinspirationguide - csc inspiration guide online</a></p>
+<p>CSS 灵感</p>
+<p><a href="https://www.awwwards.com/sites/zero-impact">Zero Impact - Awwwards SOTD</a></p>
+<p>UI 设计师的灵感源泉</p>
+<p><a href="https://htmlcheatsheet.com/css/">Online Interactive CSS Cheat Sheet</a></p>
+<p>交互式在线 CSS 速记表</p>
+<p><a href="https://zh.learnlayout.com/">学习CSS布局</a></p>
+<p>学习 CSS 布局</p>
+<p><a href="https://css-tricks.com/">CSS-Tricks</a></p>
+<p>CSS 小花招</p>
+<p><a href="https://web.dev/learn/css/">Learn CSS</a></p>
+<p>谷歌家 <a href="http://web.dev">web.dev</a> 上的 CSS 教学专栏</p>
+<p><a href="https://www.w3schools.com/howto/">W3Schools How TO - Code snippets for HTML, CSS and JavaScript</a></p>
+<p>W3 How To 学习如何实现常见的页面组件</p>
+<p><a href="https://codemyui.com/tag/pure-css/">450 Pure CSS Only Code Snippets Ξ ℂ𝕠𝕕𝕖𝕄𝕪𝕌𝕀</a></p>
+<p>450 多个纯 CSS 实现的 UI 设计</p>
+</li>
+<li>
+<p>🧚  CSS 动画</p>
+<p>纯 CSS 动画，这里不包含 JS 动画库</p>
+<p><a href="https://animate.style/">Animate.css | A cross-browser library of CSS animations.</a></p>
+<p>css 动画集</p>
+<p><a href="https://tholman.com/obnoxious/">Obnoxious.css</a></p>
+<p>不过脑子的动效，不过看起来很“猛”</p>
+<p><a href="https://elrumordelaluz.github.io/csshake/">CSShake</a></p>
+<p>css 抖动特效</p>
+<p><a href="https://animxyz.com/">AnimXYZ</a></p>
+<p>css 三维变换动画</p>
+<p><a href="https://animista.net/play/">Animista - CSS Animations on Demand</a></p>
+<p>css 动画集，可自由调节动画参数，生成代码片段</p>
+<p><a href="https://ianlunn.github.io/Hover/">Hover.css - A collection of CSS3 powered hover effects</a></p>
+<p>css 鼠标悬浮动画</p>
+<p><a href="https://www.minimamente.com/project/magic/">Magic CSS animations</a></p>
+<p>css 转场动画</p>
+</li>
+<li>
+<p>🕹️  教学游戏</p>
+<p><a href="https://cssgridgarden.com/">Grid Garden</a></p>
+<p>CSS 萝卜浇水，学习网格布局</p>
+<p><a href="http://www.flexboxdefense.com/">Flexbox Defense</a></p>
+<p>CSS 塔防游戏，学习 flex 布局</p>
+<p><a href="https://flukeout.github.io/">CSS Diner</a></p>
+<p>CSS 干饭，练习 CSS 选择器</p>
+<p><a href="https://flexboxfroggy.com/">Flexbox Froggy</a></p>
+<p>送小青蛙回家，学习 flex 布局</p>
+</li>
+<li>
+<p>🎰  代码生成</p>
+<p><a href="https://cssboxshadow.com/">Box Shadow</a></p>
+<p>盒子阴影生成器</p>
+<p><a href="https://glassgenerator.netlify.app/">Glass Morphism</a></p>
+<p>磨砂透明效果</p>
+<p><a href="https://coolbackgrounds.io/">Cool Backgrounds</a></p>
+<p>酷酷的背景图</p>
+<p><a href="https://www.pixelartcss.com/">Pixel Art to CSS</a></p>
+<p>自定义像素素材</p>
+<p><a href="https://stripesgenerator.com/">Pure CSS Stripes Generator - No Flash, No Image, ONLY CSS</a></p>
+<p>布条背景图生成器</p>
+<p><a href="https://svgwave.in/">Svg Wave - A free &amp; beautiul gradient SVG wave Generator.</a></p>
+<p>波纹生成器</p>
+<p><a href="https://numl.design/theme-generator">CSS Color Theme Generator by Numl.Design</a></p>
+<p>numl design 的主题生成器</p>
+<p><a href="https://color.adobe.com/zh/create/color-accessibility"></a></p>
+<p>adobe 针对色盲用户可访问性，提供的一个色彩拾取工具</p>
+<p><a href="https://9elements.github.io/fancy-border-radius/">Fancy Border Radius Generator</a></p>
+<p>圆角的新玩法</p>
+<ul>
+<li>
+<p>根据上面的圆角，我们可以画出一滴水珠💦</p>
+<p><a href="https://codepen.io/prathkum/pen/xxEMoZy">https://codepen.io/prathkum/pen/xxEMoZy</a></p>
+</li>
+</ul>
+<p><a href="https://accordionslider.com/">CSS Accordion Slider Generator</a></p>
+<p>纯 CSS 百叶窗</p>
+<p><a href="https://grid.layoutit.com/">Layoutit Grid - CSS Grids layouts made easy!</a></p>
+<p>网格布局生成器</p>
+<p><a href="https://csslayout.io/">CSS Layout ∙ A collection of popular layouts and patterns made with CSS</a></p>
+<p>纯 CSS 的页面元素集</p>
+<p><a href="https://keyframes.app/animate/">Keyframes.app | CSS Toolbox</a></p>
+<p>CSS 动画生成器</p>
+<p><a href="https://cssanimate.com/">CSS3 Keyframes Animation Generator</a></p>
+<p>又一个 CSS 动画生成器</p>
+<p><a href="https://www.cssfiltergenerator.com/">CSSfiltergenerator.com</a></p>
+<p>CSS 滤镜</p>
+<p><a href="https://imageslidermaker.com/">Image Slider Maker</a></p>
+<p>轮播生成器</p>
+<p><a href="https://www.30secondsofcode.org/css/p/1">CSS Snippets - 30 seconds of code</a></p>
+<p>30 秒代码片段 — css 篇</p>
+</li>
+<li>
+<p>🎨  色彩搭配</p>
+<p><a href="https://colorhunt.co/">Color Palettes for Designers and Artists - Color Hunt</a></p>
+<p><a href="https://mycolor.space/">ColorSpace - Color Palettes Generator and Color Gradient Tool</a></p>
+<p><a href="https://cssgradient.io/">CSS Gradient - Generator, Maker, and Background</a></p>
+<p>CSS 渐变色</p>
+<p><a href="https://clrs.cc/">Colors - A nicer color palette for the web.</a></p>
+</li>
+</ul>
+<h2 id="参考">参考：</h2>
+<p><a href="https://github.com/jobbole/awesome-css-cn">https://github.com/jobbole/awesome-css-cn</a> CSS 资源大全中文版</p>
+<p><a href="https://github.com/awesome-css-group/awesome-css">https://github.com/awesome-css-group/awesome-css</a> Awesome CSS</p>
+<p><a href="https://juejin.cn/post/6903712420485660685">https://juejin.cn/post/6903712420485660685</a> 一些CSS特效网站整理</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[TypeScript 中的内置范型]]></title>
         <id>https://zhoulion.github.io/me/post/typescript-zhong-de-nei-zhi-fan-xing/</id>
