@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhoulion.github.io/me</id>
     <title>Snoopy</title>
-    <updated>2021-08-12T02:37:12.044Z</updated>
+    <updated>2021-08-12T02:39:44.552Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhoulion.github.io/me"/>
     <link rel="self" href="https://zhoulion.github.io/me/atom.xml"/>
@@ -16,7 +16,7 @@
         <link href="https://zhoulion.github.io/me/post/bian-liang-ti-sheng-he-zan-shi-xing-si-qu/">
         </link>
         <updated>2021-08-12T01:53:55.000Z</updated>
-        <content type="html"><![CDATA[<p><code>Variable hoisting</code> <code>Temporal Dead Zone</code></p>
+        <content type="html"><![CDATA[<p>😣<code>Variable hoisting</code> <code>Temporal Dead Zone</code></p>
 <blockquote>
 <p>对于一个变量，没有任何理由多此一举地在定义它之前去调用它</p>
 </blockquote>
