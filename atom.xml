@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://zhoulion.github.io/me</id>
     <title>Snoopy</title>
-    <updated>2021-08-12T03:53:41.515Z</updated>
+    <updated>2021-08-15T01:41:20.644Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://zhoulion.github.io/me"/>
     <link rel="self" href="https://zhoulion.github.io/me/atom.xml"/>
@@ -10,6 +10,49 @@
     <logo>https://zhoulion.github.io/me/images/avatar.png</logo>
     <icon>https://zhoulion.github.io/me/favicon.ico</icon>
     <rights>All rights reserved 2021, Snoopy</rights>
+    <entry>
+        <title type="html"><![CDATA[如何打开生产环境的 Vue Devtools？]]></title>
+        <id>https://zhoulion.github.io/me/post/ru-he-da-kai-sheng-chan-huan-jing-de-vue-devtools/</id>
+        <link href="https://zhoulion.github.io/me/post/ru-he-da-kai-sheng-chan-huan-jing-de-vue-devtools/">
+        </link>
+        <updated>2021-08-15T01:30:03.000Z</updated>
+        <content type="html"><![CDATA[<p>「<br>
+不要吹灭你的灵感和你的想象力; 不要成为你的模型的奴隶。 ——文森特・梵高<br>
+」</p>
+<p>打开掘金首页，nuxt 图标亮了起来 🐒  那就借掘金的宝地，记录一下如何在生产环境下，开启 vue 项目的 Devtools 调试工具。<br>
+首先，我们要知道 Vue 调试工具的启动流程</p>
+<h2 id="vue-是怎么开启-devtools-插件的">Vue 是怎么开启 Devtools 插件的？</h2>
+<p><img src="https://zhoulion.github.io/me/post-images/1628991158431.png" alt="" loading="lazy"><br>
+这段是 Vue2 源码的 9095 行左右的代码：  <code>config.devtools</code> 是声明在 Vue 构造函数上的配置项，在开发环境默认值为 true，而在生产环境默认为 false，表示不开启，因此我们平常只能在开发环境上开启调试工具。</p>
+<p>🕵️ 聪明的你一定也想到了，开启 Devtools 其实只需要一行关键代码</p>
+<p><code>devtools.emit('init', Vue);</code></p>
+<h2 id="开启-devtools-插件的关键代码">开启 Devtools 插件的关键代码</h2>
+<p>理论上，我们只要在浏览器控制台执行这一行代码 <code>devtools.emit('init', Vue);</code>，便能开启 Devtools 插件。但是里面有两个未知因素 -- <code>devtools</code> 和 <code>Vue</code></p>
+<h3 id="怎样获取-devtools">怎样获取 devtools</h3>
+<p>顺藤摸瓜，我在源码中找到了插件 devtools 对应的全局变量： <code>__VUE_DEVTOOLS_GLOBAL_HOOK__</code></p>
+<h3 id="怎么获取-vue">怎么获取 Vue</h3>
+<p>为什么说 Vue 也是未知因素呢？是因为经过 webpack 打包后代码，其中 Vue 被塞进 chunk 里，不会暴露全局变量了。不过好在每一个由 Vue 组件生成的元素都留了个「后门」-- <strong>vue</strong>，该属性值指向元素的 vue 实例。 通过审查元素，我找到了掘金首页的根元素<code>「&lt;div id=&quot;__nuxt&quot;&gt;...&lt;/div&gt;」</code></p>
+<p>根节点元素的 <strong>vue</strong> 所指向的vm 实例，正是我们在 main 函数中的 new Vue({...}).$mount(target) 。所以根据 <code>Javascript</code> 原型链法则，可推导出：<code>若存在 vm = new Vue()，则 Vue = vm.constructor</code><br>
+Vue 到手👋。</p>
+<h2 id="求解">求解</h2>
+<p>现在可以将两个未知数代入到这个「方程式」里执行了，下面是控制台要执行的代码 先声明这两个变量：</p>
+<pre><code class="language-js">const devtools = window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+// 小tips，在控制台 $ 可替代 document.querySelector
+// `$('#__nuxt')` 是掘金站点的 root 节点。需要注意的是，不同的项目 root 节点有所不同
+const Vue = $('#__nuxt').__vue__.constructor;
+</code></pre>
+<p>再依次执行：</p>
+<pre><code class="language-js">// 这个也是额外的知识点 @see https://cn.vuejs.org/v2/api/#devtools
+Vue.conifg.devtools = true;
+
+devtools.emit('init', Vue);
+</code></pre>
+<p>执行之后，需要关闭控制台再重新打开，才能看到出现了 Vue 调试面板。</p>
+<p>参考：<br>
+<a href="https://cn.vuejs.org/v2/api/#devtools">Vue api - devtools</a><br>
+<a href="https://github1s.com/vuejs/vue/blob/HEAD/dist/vue.js">vue.js — vuejs/vue</a></p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[变量提升和暂时性死区]]></title>
         <id>https://zhoulion.github.io/me/post/bian-liang-ti-sheng-he-zan-shi-xing-si-qu/</id>
