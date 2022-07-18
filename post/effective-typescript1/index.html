@@ -1,0 +1,206 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Effective TypeScript(1⃣️) | Snoopy</title>
+<meta name="description" content="think slowly">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zhoulion.netlify.app/favicon.ico?v=1658157999598">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhoulion.netlify.app/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://zhoulion.netlify.app">
+        <img class="avatar" src="https://zhoulion.netlify.app/images/avatar.png?v=1658157999598" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://zhoulion.netlify.app">
+        <h1 class="site-title">Snoopy</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="https://zhoulion.github.io/me" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/itstone" class="menu purple-link">
+            他山之石
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+          <h2 class="post-title">Effective TypeScript(1⃣️)</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2022-07-18</span>
+            
+          </div>
+          <div class="post-content">
+            <h1 id="理解-ts-与-js-的关系">理解 TS 与 JS 的关系</h1>
+<h2 id="typescript-的定义">TypeScript 的定义</h2>
+<p>对于 TS 的定义或者是定位，新旧官方给出了两种解释，如搜索引擎结果，中文网的文档版本有所滞后，展示的是旧版的说法。</p>
+<figure data-type="image" tabindex="1"><img src="https://zhoulion.netlify.app/post-images/1658157104082.png" alt="" loading="lazy"></figure>
+<ul>
+<li>TypeScript 是 JavaScript 的超集</li>
+</ul>
+<p>首先，旧版官网的 slogan， <strong>TypeScript — JavaScript 的超集</strong>。超集的概念用数学 Venn 图表示如下：</p>
+<figure data-type="image" tabindex="2"><img src="https://zhoulion.netlify.app/post-images/1658157038642.png" alt="" loading="lazy"></figure>
+<ul>
+<li>TypeScript 就是带类型语句的 JavaScript</li>
+</ul>
+<p>最近 TS 的官方更新了它的 slogan — <strong>TypeScript: JavaScript with syntax for types。</strong> 它旨在消除超集这一个增加认知障碍的概念，意在宣传 TS 就是 JS， 只是添加了一些类型语句而已。</p>
+<p>TS 文件使用 <code>.ts</code> 或 <code>.tsx</code> 后缀，JS 文件使用 <code>.js</code> 或 <code>.jsx</code> 。 TypeScript 提供的编译器，通过 <code>tsc</code> 指令，可以把 <code>.ts</code> 输出为相同文件名的 <code>.js</code> 文件。</p>
+<figure data-type="image" tabindex="3"><img src="https://zhoulion.netlify.app/post-images/1658157079685.png" alt="" loading="lazy"></figure>
+<p>把 TS 文件中的类型语句删除掉，再改一下文件后缀，它就变成了 JS 文件了，反之亦然。</p>
+<figure data-type="image" tabindex="4"><img src="https://zhoulion.netlify.app/post-images/1658157092315.png" alt="" loading="lazy"></figure>
+<h2 id="健全性">健全性</h2>
+<p>最后一点，有人吐槽 TypeScript 对值类型与真实值的理解上存在一些分歧，它的类型系统设计得不是那么健全。例如下面的代码：</p>
+<pre><code class="language-ts">const names = ['Hello', 'World'];
+console.log(names[2].toUpperCase());
+</code></pre>
+<p>很显然，在运行时这段代码会报类型错误，但是 TS 的类型检查没有任何警告。它“骗过” TS 的类型检查，TypeScript 的类型系统不那么健全，这是有意而为之的。</p>
+<p>TypeScript 从来没有标榜它是一门静态语言，对于 JS 这一门已经存在了二十年的语言，在其基础上，建立一个类型系统，就需要对三个质量维度进行权衡和取舍：<strong>简单性，可用性和健全性</strong>。</p>
+<p>市面上存在一些类型系统语言其类型检查器，它们号称是十分健全的。如（<a href="https://reasonml.github.io/">Reason</a> 或者 <a href="https://elm-lang.org/">Elm</a>），这些语言提供了更加安全的运行时保证，但伴随的缺点就是，它们已经不是 JavaScript 的超集了，这给迁移工作带来了很大的复杂度。</p>
+<h2 id="最佳入门">最佳入门</h2>
+<p>如果你手头没有一个 TypeScript 项目，那么最快的实战就是访问 TS 官网的演练场 -- <a href="https://www.typescriptlang.org/zh/play?strictFunctionTypes=false&amp;q=464#example/soundness">演练场 - 一个用于 TypeScript 和 JavaScript 的在线编辑器</a></p>
+<p>现代编辑器如 VSCode 和 WebStorm 也是学习 TS 的利器，因为其内置了该语言的语言能力服务，新建一个 <code>.ts</code> 的文件，你就可以即刻体验 TypeScript。由于 TypeScript 是 JavaScript 的超集，所以 <code>.js</code> 的 JS 文件也可以享有一定程度 TypeScript 能力。</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://zhoulion.netlify.app/post/空难与类型设计/">
+              <h3 class="post-title">
+                下一篇：法航空难与类型设计
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">think slowly</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zhoulion.netlify.app/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '486e798304b99a2f1366',
+        clientSecret: '0b37c0baf785229ae2af9a796d31106d166ad9ae',
+        repo: 'me',
+        owner: 'zhouLion',
+        admin: ['zhouLion'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

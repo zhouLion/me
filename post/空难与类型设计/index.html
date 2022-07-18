@@ -1,0 +1,266 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>法航空难与类型设计 | Snoopy</title>
+<meta name="description" content="think slowly">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zhoulion.netlify.app/favicon.ico?v=1658157999598">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhoulion.netlify.app/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://zhoulion.netlify.app">
+        <img class="avatar" src="https://zhoulion.netlify.app/images/avatar.png?v=1658157999598" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://zhoulion.netlify.app">
+        <h1 class="site-title">Snoopy</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="https://zhoulion.github.io/me" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/itstone" class="menu purple-link">
+            他山之石
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+            <div class="feature-container" style="background-image: url('https://zhoulion.netlify.app/post-images/空难与类型设计.webp')">
+            </div>
+          
+          <h2 class="post-title">法航空难与类型设计</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2022-06-19</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://zhoulion.netlify.app/tag/hMeMKz_xs/">
+                    typescript
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p><img src="https://zhoulion.netlify.app/post-images/1655648627537.webp" alt="" loading="lazy"><br>
+2009年6月1日，法国航空447号航班一架空中客车A330-203客机（注册编号：F-GZCP），载有216名乘客以及12名机组人员，在巴西圣佩德罗和圣保罗岛屿附近坠毁，机上人员全数罹难。<br>
+事发后五天，巴西海军找到飞机的大型残骸及两具尸体，但揭露空难原因的黑匣子直到2011年5月在大西洋海底才找到。从记录仪中，研究人员发现了导致这次悲剧的几大重要因素，其中一个关键因素，就指向控制中心糟糕的状态程序设计。</p>
+<p>据初步调查显示，飞机失控系当时飞行员和副驾驶指令冲突所致。</p>
+<p>一般来说，飞机驾驶舱为机长和副机长提供了两套分离的控制装置，其中侧杆能控制飞机的仰角，杆往后拉飞机便会爬升，往前推飞机会下落。<br>
+如果用 TS 来声明类型：</p>
+<pre><code class="language-ts">interface CoplitControls {
+    // 侧杆的角度值，0 表示常规状态，+ 表示前推，此时飞机下落
+    sideStick: number;
+}
+
+</code></pre>
+<p>空客A330是一架新型的电传飞机，机舱人员通过物理操纵装置的输入，会经过计算机程序调度后，返回到机械设备执行。假如这里需要实现一个 <code>getSideStickSetting</code> 的函数，大概是这样设想的：</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    return controls.sideStick;
+}
+</code></pre>
+<p>但问题就在于，空客A330的控制舱，采用的是双输入模式，这种模式下，机长和副机长的侧杆，同时发挥作用，侧杆就分左右两个：</p>
+<pre><code class="language-ts">interface CoplitControls {
+    leftSideStick: number;
+    rightSideStick: number;
+}
+</code></pre>
+<p>需要综合考虑机长与副机长两方的侧杆状态。只要机长累了，机长需要把操纵杆打空，即 <code>controls.leftSideStick = 0</code>，控制权便会交给副机长了。<br>
+这使得 <code>getSideStickSetting</code> 函数实现上有点变化:</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    const { leftSideStick, rightSideStick } = controls;
+    if (leftSideStick === 0) {
+        return rightSideStick;
+    }
+    return leftSideStick;
+}
+</code></pre>
+<p>不过这种实现存在一些问题：实际上只有在副机长放空档了，程序才有必要将控制权交给机长。补充一个条件判断。</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    const { leftSideStick, rightSideStick } = controls;
+    if (leftSideStick === 0) {
+        return rightSideStick;
+    } else if (rightSideStick === 0) {
+        return leftSideStick;
+    }
+}
+</code></pre>
+<p>但是，当左右侧杆都在工作，即均为非零值的时候，需要如何执行程序呢？我们寄希望于他们两个的经验相似，操作误差不会太大，这样我们可以对他们两个人的操作取平均值，均衡操作的差异。</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    const { leftSideStick, rightSideStick } = controls;
+    if (leftSideStick === 0) {
+        return rightSideStick;
+    } else if (rightSideStick === 0) {
+        return leftSideStick;
+    }
+    if (Math.abs(leftSideStick - rightSideStick) &lt; 5) {
+        return (leftSideStick + rightSideStick) / 2;
+    }
+    // ？？？ 注意这里存在未处理的条件
+}
+</code></pre>
+<p>正副机长操作差异过大的情况，就这样被程序给忽略了，这时候难道不应该报异常吗？可飞行器不允许有报错，它就必须有一个明确的值。</p>
+<p>让我们把时间线回溯到失事的当天，在 447 航班飞行途中遭遇风暴，训练有素的机长冷静的回拉侧杆使机身爬升，飞机上升了一定的高度之后，最终降低了速度，进入了失速状态，当飞机移动速度过慢会导致其最终丧失了继续爬升的能力，于是飞机因为重力开始下降。为了脱离失速，机长也是娴熟地稍微前推操纵杆，使飞机下潜俯冲，以便重新获得足够的速度。但是此时副驾驶的操纵杆没有打正，仍然是处于稍微的回拉状态，此时程序执行的是这段条件语句：</p>
+<pre><code class="language-ts">if (Math.abs(leftSideStick - rightSideStick) &lt; 5) {
+        return (leftSideStick + rightSideStick) / 2;
+}
+</code></pre>
+<p>刚好两人的操纵杆的参数被平均了，飞机接收不到足够的俯角值，于是机长将操纵杆前推打满，熟悉上述<code>getSideStickSetting</code> 实现逻辑的人看出来，这会触发到程序中未捕获的条件分支，飞机没有得到明确的指令值，当副驾驶幡然醒悟过来，一切为时已晚，机舱中 216 名乘客以及 12 名机组人员随飞机冲进大海，瞬间殒命。</p>
+<p>最终矛头指向了 <code>getSideStickSetting</code> 函数实现不当上，这个函数没有执行返回正确的值。<br>
+其实不然，根源在于 A330 的这套双模式设计，是一个冗余设计，这遭致了程序变得不易把控。现在的正副驾驶员的侧杆已经被机械相连了，也就是说，机长的侧杆回拉，副机长的侧杆也会联动的被回拉，反之亦然。用 TypeScript 表示，类型又回归到了最初的样子：</p>
+<pre><code class="language-ts">interface CoplitControls {
+    // 侧杆的角度值，0 表示常规状态，+ 表示前推，此时飞机下落
+    sideStick: number;
+}
+
+</code></pre>
+<p>简单而且有效。</p>
+<h2 id="总结">总结</h2>
+<p>当我们设计类型系统，要仔细思考哪些值是我们需要的，哪些是非必要的。当我们仅保留那些能表示有效状态的值，我们的程序实现就会愈加简单，错误就会越少。</p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://zhoulion.netlify.app/post/six-thinking-hats/">
+              <h3 class="post-title">
+                下一篇：Six Thinking Hats
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">think slowly</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zhoulion.netlify.app/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '486e798304b99a2f1366',
+        clientSecret: '0b37c0baf785229ae2af9a796d31106d166ad9ae',
+        repo: 'me',
+        owner: 'zhouLion',
+        admin: ['zhouLion'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

@@ -1,0 +1,213 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    
+<meta charset="utf-8" >
+
+<title>Ishikawa Diagram | Snoopy</title>
+<meta name="description" content="think slowly">
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://zhoulion.netlify.app/favicon.ico?v=1658157999598">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
+<link rel="stylesheet" href="https://zhoulion.netlify.app/styles/main.css">
+
+
+  
+    <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
+  
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+  </head>
+  <body>
+    <div id="app" class="main">
+      <div class="site-header-container">
+  <div class="site-header">
+    <div class="left">
+      <a href="https://zhoulion.netlify.app">
+        <img class="avatar" src="https://zhoulion.netlify.app/images/avatar.png?v=1658157999598" alt="" width="32px" height="32px">
+      </a>
+      <a href="https://zhoulion.netlify.app">
+        <h1 class="site-title">Snoopy</h1>
+      </a>
+    </div>
+    <div class="right">
+      <transition name="fade">
+        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+      </transition>
+    </div>
+  </div>
+</div>
+
+<transition name="fade">
+  <div class="menu-container" style="display: none;" v-show="menuVisible">
+    <div class="menu-list">
+      
+        
+          <a href="https://zhoulion.github.io/me" class="menu purple-link">
+            首页
+          </a>
+        
+      
+        
+          <a href="/itstone" class="menu purple-link">
+            他山之石
+          </a>
+        
+      
+        
+          <a href="/tags" class="menu purple-link">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="menu purple-link">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+</transition>
+
+
+      <div class="content-container">
+        <div class="post-detail">
+          
+            <div class="feature-container" style="background-image: url('https://zhoulion.netlify.app/post-images/ishikawa-diagram.png')">
+            </div>
+          
+          <h2 class="post-title">Ishikawa Diagram</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2022-06-12</span>
+            
+              <span>
+                <i class="icon-pricetags-outline"></i>
+                
+                  <a href="https://zhoulion.netlify.app/tag/2CD5d0dqP/">
+                    untool
+                    
+                  </a>
+                
+              </span>
+            
+          </div>
+          <div class="post-content">
+            <p><code>Ishikawa Diagram</code> 是一个非常有用的工具，它通过识别问题的根源的方式，来协助你解决问题。该图表是由日本一位学者 Kaoru Ishikawa（石川耀） 发明的，所以又被称为「石川图」，又因其酷似鱼的骨架，所以又被称为 Fishbone Diagram — 鱼骨图。下面是它的结构。</p>
+<figure data-type="image" tabindex="1"><img src="https://zhoulion.netlify.app/post-images/1655063937259.png" alt="" loading="lazy"></figure>
+<h2 id="如何使用">如何使用：</h2>
+<p>可以通过一些简单的步骤来构建这样的一个图表。</p>
+<ul>
+<li>定义问题<br>
+一开始，给一个问题下定义，然后在问题的右侧画一条横线，当然左侧右侧无所谓，依据自己的偏好即可。<br>
+下一步我们将在这条线上添加一些其它因素。</li>
+<li>指出影响因素或者类别<br>
+列出你所要解决的问题的影响因素或者类别，把它们逐一标绘到主线的两侧。<br>
+比如，你可以列出一些具体的因素，建议使用常用的分类名词：人员、设备、方法、预算、素材以及环境等。<br>
+这种分类对于处理复杂问题有奇效，并且可以从不同的角度看待它们。</li>
+<li>找到与各个因素相关的根源<br>
+自问「为什么会这样?」，把每一个想法在与之相关的因子下用一条线写下来。<a href="https://www.notion.so/fcd5a359c8cd4e5ab035b9ec3600eff7">第一原则思维</a>在这里很有用，包括“五个为什么”方法。请记住，问题的根本原因可能不止一个，而是多个。所以，捕捉所有可能解释这个问题的东西是很重要的，即使只是部分解释。<br>
+自此，你就有了一个完整的图表，不过这还不能得到最终的问题答案。</li>
+<li>分析图表<br>
+最重要的一步便在于查看所有可能的根源，去分析它们。鱼骨图不提供分析问题的方法论，也就是说，图表已经为你呈现出所有你认为是问题根源的因素，接下来就看你怎么分析。<br>
+具体问题具体分析，你可以收集这些根源的数据和证据来推断其严重性，或者也可以直接将某一因素看作最严重的，先直接解决它查看是否有效。这些都依赖你定位问题和识别潜在原因的方法。</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p><a href="https://youtu.be/mLvizyDFLQ4">&quot;How to create cause-and-effect diagrams&quot; by HarvardX (Video)</a></p>
+<p><a href="https://asq.org/quality-resources/fishbone">&quot;Fishbone Diagram&quot; by American Society for Quality</a></p>
+
+          </div>
+        </div>
+
+        
+          <div class="next-post">
+            <a class="purple-link" href="https://zhoulion.netlify.app/post/ru-he-da-kai-sheng-chan-huan-jing-de-vue-devtools/">
+              <h3 class="post-title">
+                下一篇：如何打开生产环境的 Vue Devtools？
+              </h3>
+            </a>
+          </div>
+          
+      </div>
+
+      
+        
+          <div id="gitalk-container"></div>
+        
+
+        
+      
+
+      <div class="site-footer">
+  <div class="slogan">think slowly</div>
+  <div class="social-container">
+    
+      
+    
+      
+    
+      
+    
+      
+    
+      
+    
+  </div>
+  Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://zhoulion.netlify.app/atom.xml" target="_blank">RSS</a>
+</div>
+
+
+    </div>
+    <script type="application/javascript">
+
+hljs.initHighlightingOnLoad()
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+  
+    <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
+    <script>
+
+      var gitalk = new Gitalk({
+        clientID: '486e798304b99a2f1366',
+        clientSecret: '0b37c0baf785229ae2af9a796d31106d166ad9ae',
+        repo: 'me',
+        owner: 'zhouLion',
+        admin: ['zhouLion'],
+        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
+        distractionFreeMode: false  // Facebook-like distraction free mode
+      })
+
+      gitalk.render('gitalk-container')
+
+    </script>
+  
+
+  
+
+
+
+
+  </body>
+</html>

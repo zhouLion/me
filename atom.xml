@@ -1,0 +1,674 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://zhoulion.netlify.app</id>
+    <title>Snoopy</title>
+    <updated>2022-07-18T15:26:45.838Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://zhoulion.netlify.app"/>
+    <link rel="self" href="https://zhoulion.netlify.app/atom.xml"/>
+    <subtitle>think slowly</subtitle>
+    <logo>https://zhoulion.netlify.app/images/avatar.png</logo>
+    <icon>https://zhoulion.netlify.app/favicon.ico</icon>
+    <rights>All rights reserved 2022, Snoopy</rights>
+    <entry>
+        <title type="html"><![CDATA[Effective TypeScript(1⃣️)]]></title>
+        <id>https://zhoulion.netlify.app/post/effective-typescript1/</id>
+        <link href="https://zhoulion.netlify.app/post/effective-typescript1/">
+        </link>
+        <updated>2022-07-18T15:06:58.000Z</updated>
+        <content type="html"><![CDATA[<h1 id="理解-ts-与-js-的关系">理解 TS 与 JS 的关系</h1>
+<h2 id="typescript-的定义">TypeScript 的定义</h2>
+<p>对于 TS 的定义或者是定位，新旧官方给出了两种解释，如搜索引擎结果，中文网的文档版本有所滞后，展示的是旧版的说法。</p>
+<figure data-type="image" tabindex="1"><img src="https://zhoulion.netlify.app/post-images/1658157104082.png" alt="" loading="lazy"></figure>
+<ul>
+<li>TypeScript 是 JavaScript 的超集</li>
+</ul>
+<p>首先，旧版官网的 slogan， <strong>TypeScript — JavaScript 的超集</strong>。超集的概念用数学 Venn 图表示如下：</p>
+<figure data-type="image" tabindex="2"><img src="https://zhoulion.netlify.app/post-images/1658157038642.png" alt="" loading="lazy"></figure>
+<ul>
+<li>TypeScript 就是带类型语句的 JavaScript</li>
+</ul>
+<p>最近 TS 的官方更新了它的 slogan — <strong>TypeScript: JavaScript with syntax for types。</strong> 它旨在消除超集这一个增加认知障碍的概念，意在宣传 TS 就是 JS， 只是添加了一些类型语句而已。</p>
+<p>TS 文件使用 <code>.ts</code> 或 <code>.tsx</code> 后缀，JS 文件使用 <code>.js</code> 或 <code>.jsx</code> 。 TypeScript 提供的编译器，通过 <code>tsc</code> 指令，可以把 <code>.ts</code> 输出为相同文件名的 <code>.js</code> 文件。</p>
+<figure data-type="image" tabindex="3"><img src="https://zhoulion.netlify.app/post-images/1658157079685.png" alt="" loading="lazy"></figure>
+<p>把 TS 文件中的类型语句删除掉，再改一下文件后缀，它就变成了 JS 文件了，反之亦然。</p>
+<figure data-type="image" tabindex="4"><img src="https://zhoulion.netlify.app/post-images/1658157092315.png" alt="" loading="lazy"></figure>
+<h2 id="健全性">健全性</h2>
+<p>最后一点，有人吐槽 TypeScript 对值类型与真实值的理解上存在一些分歧，它的类型系统设计得不是那么健全。例如下面的代码：</p>
+<pre><code class="language-ts">const names = ['Hello', 'World'];
+console.log(names[2].toUpperCase());
+</code></pre>
+<p>很显然，在运行时这段代码会报类型错误，但是 TS 的类型检查没有任何警告。它“骗过” TS 的类型检查，TypeScript 的类型系统不那么健全，这是有意而为之的。</p>
+<p>TypeScript 从来没有标榜它是一门静态语言，对于 JS 这一门已经存在了二十年的语言，在其基础上，建立一个类型系统，就需要对三个质量维度进行权衡和取舍：<strong>简单性，可用性和健全性</strong>。</p>
+<p>市面上存在一些类型系统语言其类型检查器，它们号称是十分健全的。如（<a href="https://reasonml.github.io/">Reason</a> 或者 <a href="https://elm-lang.org/">Elm</a>），这些语言提供了更加安全的运行时保证，但伴随的缺点就是，它们已经不是 JavaScript 的超集了，这给迁移工作带来了很大的复杂度。</p>
+<h2 id="最佳入门">最佳入门</h2>
+<p>如果你手头没有一个 TypeScript 项目，那么最快的实战就是访问 TS 官网的演练场 -- <a href="https://www.typescriptlang.org/zh/play?strictFunctionTypes=false&amp;q=464#example/soundness">演练场 - 一个用于 TypeScript 和 JavaScript 的在线编辑器</a></p>
+<p>现代编辑器如 VSCode 和 WebStorm 也是学习 TS 的利器，因为其内置了该语言的语言能力服务，新建一个 <code>.ts</code> 的文件，你就可以即刻体验 TypeScript。由于 TypeScript 是 JavaScript 的超集，所以 <code>.js</code> 的 JS 文件也可以享有一定程度 TypeScript 能力。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[法航空难与类型设计]]></title>
+        <id>https://zhoulion.netlify.app/post/空难与类型设计/</id>
+        <link href="https://zhoulion.netlify.app/post/空难与类型设计/">
+        </link>
+        <updated>2022-06-19T04:23:41.000Z</updated>
+        <content type="html"><![CDATA[<p><img src="https://zhoulion.netlify.app/post-images/1655648627537.webp" alt="" loading="lazy"><br>
+2009年6月1日，法国航空447号航班一架空中客车A330-203客机（注册编号：F-GZCP），载有216名乘客以及12名机组人员，在巴西圣佩德罗和圣保罗岛屿附近坠毁，机上人员全数罹难。<br>
+事发后五天，巴西海军找到飞机的大型残骸及两具尸体，但揭露空难原因的黑匣子直到2011年5月在大西洋海底才找到。从记录仪中，研究人员发现了导致这次悲剧的几大重要因素，其中一个关键因素，就指向控制中心糟糕的状态程序设计。</p>
+<p>据初步调查显示，飞机失控系当时飞行员和副驾驶指令冲突所致。</p>
+<p>一般来说，飞机驾驶舱为机长和副机长提供了两套分离的控制装置，其中侧杆能控制飞机的仰角，杆往后拉飞机便会爬升，往前推飞机会下落。<br>
+如果用 TS 来声明类型：</p>
+<pre><code class="language-ts">interface CoplitControls {
+    // 侧杆的角度值，0 表示常规状态，+ 表示前推，此时飞机下落
+    sideStick: number;
+}
+
+</code></pre>
+<p>空客A330是一架新型的电传飞机，机舱人员通过物理操纵装置的输入，会经过计算机程序调度后，返回到机械设备执行。假如这里需要实现一个 <code>getSideStickSetting</code> 的函数，大概是这样设想的：</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    return controls.sideStick;
+}
+</code></pre>
+<p>但问题就在于，空客A330的控制舱，采用的是双输入模式，这种模式下，机长和副机长的侧杆，同时发挥作用，侧杆就分左右两个：</p>
+<pre><code class="language-ts">interface CoplitControls {
+    leftSideStick: number;
+    rightSideStick: number;
+}
+</code></pre>
+<p>需要综合考虑机长与副机长两方的侧杆状态。只要机长累了，机长需要把操纵杆打空，即 <code>controls.leftSideStick = 0</code>，控制权便会交给副机长了。<br>
+这使得 <code>getSideStickSetting</code> 函数实现上有点变化:</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    const { leftSideStick, rightSideStick } = controls;
+    if (leftSideStick === 0) {
+        return rightSideStick;
+    }
+    return leftSideStick;
+}
+</code></pre>
+<p>不过这种实现存在一些问题：实际上只有在副机长放空档了，程序才有必要将控制权交给机长。补充一个条件判断。</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    const { leftSideStick, rightSideStick } = controls;
+    if (leftSideStick === 0) {
+        return rightSideStick;
+    } else if (rightSideStick === 0) {
+        return leftSideStick;
+    }
+}
+</code></pre>
+<p>但是，当左右侧杆都在工作，即均为非零值的时候，需要如何执行程序呢？我们寄希望于他们两个的经验相似，操作误差不会太大，这样我们可以对他们两个人的操作取平均值，均衡操作的差异。</p>
+<pre><code class="language-ts">function getSideStickSetting(controls: CoplitControls) {
+    const { leftSideStick, rightSideStick } = controls;
+    if (leftSideStick === 0) {
+        return rightSideStick;
+    } else if (rightSideStick === 0) {
+        return leftSideStick;
+    }
+    if (Math.abs(leftSideStick - rightSideStick) &lt; 5) {
+        return (leftSideStick + rightSideStick) / 2;
+    }
+    // ？？？ 注意这里存在未处理的条件
+}
+</code></pre>
+<p>正副机长操作差异过大的情况，就这样被程序给忽略了，这时候难道不应该报异常吗？可飞行器不允许有报错，它就必须有一个明确的值。</p>
+<p>让我们把时间线回溯到失事的当天，在 447 航班飞行途中遭遇风暴，训练有素的机长冷静的回拉侧杆使机身爬升，飞机上升了一定的高度之后，最终降低了速度，进入了失速状态，当飞机移动速度过慢会导致其最终丧失了继续爬升的能力，于是飞机因为重力开始下降。为了脱离失速，机长也是娴熟地稍微前推操纵杆，使飞机下潜俯冲，以便重新获得足够的速度。但是此时副驾驶的操纵杆没有打正，仍然是处于稍微的回拉状态，此时程序执行的是这段条件语句：</p>
+<pre><code class="language-ts">if (Math.abs(leftSideStick - rightSideStick) &lt; 5) {
+        return (leftSideStick + rightSideStick) / 2;
+}
+</code></pre>
+<p>刚好两人的操纵杆的参数被平均了，飞机接收不到足够的俯角值，于是机长将操纵杆前推打满，熟悉上述<code>getSideStickSetting</code> 实现逻辑的人看出来，这会触发到程序中未捕获的条件分支，飞机没有得到明确的指令值，当副驾驶幡然醒悟过来，一切为时已晚，机舱中 216 名乘客以及 12 名机组人员随飞机冲进大海，瞬间殒命。</p>
+<p>最终矛头指向了 <code>getSideStickSetting</code> 函数实现不当上，这个函数没有执行返回正确的值。<br>
+其实不然，根源在于 A330 的这套双模式设计，是一个冗余设计，这遭致了程序变得不易把控。现在的正副驾驶员的侧杆已经被机械相连了，也就是说，机长的侧杆回拉，副机长的侧杆也会联动的被回拉，反之亦然。用 TypeScript 表示，类型又回归到了最初的样子：</p>
+<pre><code class="language-ts">interface CoplitControls {
+    // 侧杆的角度值，0 表示常规状态，+ 表示前推，此时飞机下落
+    sideStick: number;
+}
+
+</code></pre>
+<p>简单而且有效。</p>
+<h2 id="总结">总结</h2>
+<p>当我们设计类型系统，要仔细思考哪些值是我们需要的，哪些是非必要的。当我们仅保留那些能表示有效状态的值，我们的程序实现就会愈加简单，错误就会越少。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Six Thinking Hats]]></title>
+        <id>https://zhoulion.netlify.app/post/six-thinking-hats/</id>
+        <link href="https://zhoulion.netlify.app/post/six-thinking-hats/">
+        </link>
+        <updated>2022-06-13T15:42:26.000Z</updated>
+        <content type="html"><![CDATA[<aside>
+💡 横看成岭侧成峰，远近高低各不同。
+</aside>
+<figure data-type="image" tabindex="1"><img src="https://zhoulion.netlify.app/post-images/1655135021671.png" alt="6 顶思维帽" loading="lazy"></figure>
+<p>当要做一个最佳的决策，通常需要通过不同的角度来看待它们，这样可以比较忽视某个重点。<code>Six Thinking Hats</code>「六顶思维帽子」是由 Edward de Bono 所发明的一套应对这种事务的方法论。</p>
+<h2 id="如何使用">如何使用</h2>
+<p>每顶思维帽子，代表这一个特定的视角、观点或者思考方式。试试戴上不同的帽子去做一些决策吧。</p>
+<p>下面是每顶帽子的简单介绍：</p>
+<ul>
+<li>🟡 Yellow Hat = positivity：尽力发掘这个决定带来的收益，做出这项决定后，会带来那些机遇。</li>
+<li>🟢 Green Hat = creativity：头脑风暴，发散性的思考，生成各种新点子。尝试想出一些富有创造性的选项和解决方案。</li>
+<li>🔴 Red Hat = emotions：带入主观情感，动用你的直觉和感受，试着去观察别人情感反应。将情绪带入到一个不那么理性的过程，是一个不错的方法。</li>
+<li>⚪ White Hat = data：聚焦数据和趋势，也一个非常理中客的角度来发表意见。</li>
+<li>⚫ Black Hat = downside：黑帽子代表批判，是🟡 的对立面。做合乎情理的最坏的打算，揪出决策后假设的潜在风险。</li>
+<li>🔵 Blue Hat = process：帽子戏法。蓝帽子无鲜明立场，只在当讨论一筹莫展的时候，切换思维，控制流程，来推进决策会议的进度。</li>
+</ul>
+<p>在团队的决策会议中，与会人员可以根据自己的立场，「戴上」不同颜色的帽子参会，发表自己的意见。</p>
+<h2 id="总结">总结</h2>
+<p>六顶思考帽的主要功能在于为人们建立一个思考框架，在这个框架下按照特定的程序进行思 考，可以极大地提高企业与个人的效能，降低会议成本，节省会议时间。</p>
+<h2 id="参考">参考</h2>
+<p><a href="https://baike.baidu.com/item/%E5%85%AD%E9%A1%B6%E6%80%9D%E8%80%83%E5%B8%BD/3202458">https://baike.baidu.com/item/%E5%85%AD%E9%A1%B6%E6%80%9D%E8%80%83%E5%B8%BD/3202458</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[首要原则思维]]></title>
+        <id>https://zhoulion.netlify.app/post/first-principles/</id>
+        <link href="https://zhoulion.netlify.app/post/first-principles/">
+        </link>
+        <updated>2022-06-13T14:27:48.000Z</updated>
+        <content type="html"><![CDATA[<blockquote>
+<p>大事化小，小事化了</p>
+</blockquote>
+<p><strong><code>First Principles</code></strong> 首要原则思维，是一个解决问题的方法论。有时它也叫「第一性原则推理」。</p>
+<p><code>首要原则</code>：指的是一个基本原则或者一个不可被推翻的真理。首要原则思维是有关发掘问题更深层，直至触及问题非常底层的一个思维能力。</p>
+<hr>
+<h2 id="如何运用">如何运用</h2>
+<p>带着你的问题，执行下面两步</p>
+<ul>
+<li>将问题分解为最基础真理</li>
+<li>从这些原理中重新构建解决方案</li>
+</ul>
+<p>听上去挺简单的，但是需要专注思索如何将一个问题刨根问底，发掘它的那些首要原则。</p>
+<p>一般来说可以才去下面这些技巧：</p>
+<h3 id="问-5-个为什么">问 5 个为什么</h3>
+<p>研究表明，在通过反复的质问「为什么」，可以有效的帮助我们发掘问题的深层原因，这是一个很流行的技巧方式。一般来说问五个为什么就足以发现问题的首要原则。当然也不必止步于这个数字5。</p>
+<h3 id="苏格拉底式提问">苏格拉底式提问</h3>
+<blockquote>
+<p><a href="https://zh.wikipedia.org/zh-cn/%E8%8B%8F%E6%A0%BC%E6%8B%89%E5%BA%95%E5%BC%8F%E7%9A%84%E8%B4%A8%E7%96%91">苏格拉底式的质疑 - 维基百科，自由的百科全书 (wikipedia.org)</a></p>
+</blockquote>
+<p>一套训练有素的询问方式可以培养批判性思维。</p>
+<p>苏格拉底的质疑说明了在学习中提问的重要性。它阐明了系统思维和分散思维之间的差异。 它教会我们深入思考我们的想法。它教会了我们开发培育深度学习的质疑思想的价值。以下有六种提问方式，可以有助于我们发掘问题的基本真理：</p>
+<ol>
+<li>
+<p>使学生<strong>厘清</strong>他们的<strong>思维/寻找</strong>他们<strong>思维的源头</strong></p>
+<p><em>例如：“你为什么这么说？”, “你可以进一步解释吗？”</em></p>
+</li>
+<li>
+<p>挑战学生的假设</p>
+<p><em>例如：“这个情况总是发生吗?”, “为什么你认为这个假设可以存在？”</em></p>
+</li>
+<li>
+<p>证据为基础的论点</p>
+<p><em>例如：“你为什么这么说？”，“有理由怀疑这些证据吗？”</em></p>
+</li>
+<li>
+<p><strong>替代</strong>观点和角度/<strong>冲击</strong>其他想法</p>
+<p><em>例如：“这个有什么其他东西可以反驳吗?”, “可不可以/有没有人 能用这种另一种方法？”</em></p>
+</li>
+<li>
+<p><strong>影响和后果</strong></p>
+<p><em>例如：“但是如果...发生了，还会出现什么样的结果呢？”, “...将会如何影响..?”</em></p>
+</li>
+<li>
+<p><strong>质疑问题</strong></p>
+<p><em>例如：“你为什么认为我问了这个问题？”，“为什么这个问题很重要？”，“你的哪个问题最为有用？”</em></p>
+</li>
+</ol>
+<h2 id="参考">参考</h2>
+<p><a href="https://dropbox.design/article/mental-models-for-designers">&quot;Mental models for designers&quot; by Wes O'Haire</a></p>
+<p><a href="https://fs.blog/2018/04/first-principles/">&quot;First Principles: The Building Blocks of True Knowledge&quot; by Shane Parrish</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[周有光《双语言时代》解读：为什么要学英语]]></title>
+        <id>https://zhoulion.netlify.app/post/zhou-you-guang-lesslessshuang-yu-yan-shi-dai-greatergreater-jie-du-wei-shi-me-yao-xue-ying-yu/</id>
+        <link href="https://zhoulion.netlify.app/post/zhou-you-guang-lesslessshuang-yu-yan-shi-dai-greatergreater-jie-du-wei-shi-me-yao-xue-ying-yu/">
+        </link>
+        <updated>2022-06-12T17:04:48.000Z</updated>
+        <content type="html"><![CDATA[<figure data-type="image" tabindex="1"><img src="https://zhoulion.netlify.app/post-images/1655063971625.png" alt="" loading="lazy"></figure>
+<p><a href="https://baike.baidu.com/item/%E5%91%A8%E6%9C%89%E5%85%89/1180559">周有光</a>（1906年1月13日－2017年1月14日，享年112岁），原名周耀平，出生于江苏常州，中国著名语言学家。早年研读经济学，1955年调到北京，进入中国文字改革委员会，专职从事语言文字研究。汉语拼音系统是在1950年代由包括周有光在内的一群中国语言学家基于早期汉字拉丁化的基础开发的，周有光的语言文字研究中心是中国语文现代化，他对中国语文现代化的理论和实践做了全面的科学的阐释。被誉为“<strong>汉语拼音之父</strong>”</p>
+<p>周有光是汉语拼音方案的主要制订者，并主持制订了《汉语拼音正词法基本规则》。85岁以后开始研究文化学问题。周有光在语言文字学和文化学领域发表专著30多部，论文300多篇，在国内外产生了广泛影响。中评网称周有光具有“自由之思想，独立之人格”；苏培成称其“敢于说真话、说实话”；《晶报》称他“敢讲一般人不敢讲的话”。</p>
+<h2 id="一-国家共同语和国际共同语">一、国家共同语和国际共同语</h2>
+<p>孔子说：“登东山而小鲁，登太山而小天下”。今天还要添上一句：“登月球而小地球”。超音速飞机从地球上任何一个城市到任何一个城市，都可以早发而夕至。地球的确太小了，不能再说是“大地”，已经成为一个小小的村庄，叫做地球村。</p>
+<p>孔子有弟子三千人，来自言语的四方。他对弟子们讲学，说的是什么语言呢？孔子周游列国，不带翻译。他向诸侯宣讲仁义，说的是什么语言呢？他不说本乡的“老三”土话，而说当时的“天下共同语”，叫做“雅言”。孔子的语言是“双语言”：雅言和方言。</p>
+<p>在地球村里，民族繁多，言语各异。如果东村说的话西村听不懂，西村说的话东村听不懂，那么地球就成哑巴村了。地球必需有大家公用的共同语。</p>
+<p>用什么语言作为地球村的共同语呢？“世界语”行吗？不行。所谓“世界语”就是“爱斯不难读”(Esperanto)。这种人造语规则简单，学习容易，但是应用范围不广，图书资料稀少，只相当当于一个小语种，不能适应现代政治，贸易和科技等领域的复杂需要，所以联合国六种工作语言中没有它的地位。</p>
+<p>地球村的共同语不是开会决定的，而是由历史逐渐形成的。英语已经事实上成为地球村的共同语。三百年来“日不落”的大英帝国“日落”了，留下来一份遗产“英语”，正像罗马帝国瓦解之后留下来的“拉丁语”。“公历”失去了宗教特色，“米制”失去了法国特色，“英语”失去了狭义的国家特色。英语不仅没有阶级性，也没有国家的疆界。它是一条大家可走的公路，谁利用它，谁就得到方便。</p>
+<p>二次大战后，有一百多个殖民地独立成为新兴国家。在语言工作上，它们面对两项历史任务：一方面要建设国家共同语，另一方面要使用国际共同语。日常生活和本国文化用国家共同语，国际事务和现代化用国际共同语。文化和经济发达的国家，早已实现了双语言。现代是双语言时代。</p>
+<h2 id="二-英语的洪水泛滥">二、英语的洪水泛滥</h2>
+<p>“英语”原意“地角语言”。5世纪中叶(中国南北朝)，欧洲大陆一个部落叫作“地角人”(Engle)，从石勒苏益格(Schleswig，现在德国北部)渡海移居不列颠(Britain)。他们的“地角语”(Englisc，古拼法)代替了当地的凯尔特语(Celtic)。于是地区称为“英格兰”，语言称为“英语”(English，现代拼法)。</p>
+<p>1066年(北宋中期)，说法语的诺曼底人(Norman)侵入英国，此后两百年间英格兰以法语为官方语言。后来，1350-1380年间，英语开始用作学校语言和法庭语言。1399年(明朝迁都北京之前)，英格兰人亨利第四当上了英王，此后英语的伦敦方言成为文学语言。</p>
+<p>英语在5-6世纪时，用原始的“鲁纳”(runa)字母书写。7世纪时(中国唐代前期)，基督教从爱尔兰传入英格兰，英语开始拉丁化。拉丁字母跟英语的关系，好比汉字跟日语的关系。英语的拉丁化是很晚的，到中国唐代时候才初步成形。</p>
+<p>英语不是先有拼写规则然后拼写的，而是在随意拼写中逐渐约定俗成的。拼法不规则的原因主要有：1、字母少而音素多，造成一音多拼；2、语音变而拼法不变，遗留古文痕迹；3、强调拼法反映希腊和拉丁的词源，人为地造成言文不一致现象；4、部分语词采用法文拼法；5、不断借入外来词，拼写法变得非常庞杂；6、15世纪(明代中叶)，英语发生语音的重大变化。刚刚写定的文字无法系统地改变，混乱的写法流传下来成为今天拼写定形的基础。</p>
+<p>民国初年，英国“海盗牌香烟”的广告曾经贴满中国的街头。英国本来是个海盗之国。1588年(明万历年间)，英国发挥海盗精神，用海上游击战术，以一群零散的小兵舰打败了西班牙的“无敌舰队”，从此成为海洋第一霸主。此后四百年间，英国建立了一个人类历史上最大的殖民帝国，被称为“大英帝国”。英国打破历史传统，努力开创新的历史局面，在政治上开创民主制度，在经济上开创工业化生产方式。这两个开创改变了人类历史，使英语在全世界语言中独占鳌头。</p>
+<p>英语虽然拼法不规则，但是同一个语词有一定的拼法和读音，例外只是少数。语法比其他欧洲语言简单。英语从四面八方吸收有用的外来词，成为词汇最丰富的语言。它用26个现代罗马字母而不加符号，方便打字和电脑处理。</p>
+<p>两次世界大战，从英国殖民地独立成为现代大国的美国，不仅在军事上取得胜利，并且在战后开创了信息化的新时代。英语的流通扩大，美国是最主要的推动力量。起源于美国的多媒体电脑和国际互联网络，不断造出以英语为基础的新术语。信息化和英语化成了同义词。英语通过电视和电脑，正在倾泻进全世界每一个知识分子的家庭。英语的洪水泛滥全球。</p>
+<h2 id="三-法语的争霸战">三、法语的争霸战</h2>
+<p>原来，法语和俄语都跟英语争当语言霸主。苏联瓦解之后，俄语退出了争霸舞台，法语孤军作战。</p>
+<p>一次世界大战之前，法国是欧洲大陆最强的国家，法语是国际的通用语，国际会议几乎都用法语。当时，不会法语就难做外交官。直到如今，邮政领域还在某种国际事务中使用法语。可是，一次大战中法国失败，由于美国参战，然后传败为胜。1922年，举行华盛顿国际会议时候，美国有礼貌跟法国商量，可否在会议中同时使用英语。法国不好意思说“不”。这一答应，改变了语言的国际形势。</p>
+<p>二次大战法国再次失败，又由于美国参战，然后传败为胜。成立联合国时候，议定以“英、法、西、俄、中”五种语言为工作语言，后来又增加一种阿拉伯语。联合国原始文件所用语言，英语占80%，法语占15%，西班牙语占4%，俄语、中文和阿拉伯语合计占1%。法语的应用不到英语的五分之一(参看周耀文《论语言融合》1995)。今天多数国际会议，名义上用英法两语，事实上只用英语。</p>
+<p>二次战后，范围仅次于英帝国的法国也瓦解了。法国利用法语作纽带，团结原来的殖民地组成了一个“法语国际”推广法语，跟英语作斗争，这是法国的重大国策。为此，法国设立国家法语委员会，由总统直接领导。法国规定，在法国销售的外国货物，广告必须用法语。国宣传，法语是最优美的艺术语言，是人类最高尚的文化语言。凡是以法语为第一外国语的国家或地区，法国愿意给以津贴和帮助。</p>
+<p>可是，历史的变化跟法国的愿望背道而驰。印度支那三国原来是法国殖民地，通行法语，由于准备加入东南亚联盟，都放弃法语，改用英语。新闻报道说，越南为了加入东盟，从国家主席到一般公司职员，人人都在学习英语。柬埔寨的大学生上街游行，要求学习英语。印度支那的第一外国语由法语变为英语，这是“法语国际”的重大挫折。</p>
+<p>最近又发生新的不利于法语的情况。从法国殖民地独立起来的阿尔及利亚，宣布从1998年起，学校改为英语为第一外国语。法国一向把阿尔及利亚当作自己的一个省份看待，这里也要改用英语，那是心腹大患，使法国难于忍受。“法语国际”只剩下半个“法语非洲”了，据说那里也在酝酿改学英语。</p>
+<p>法语跟英语的斗争，为什么处处失败呢？原因可能是：1、法帝国的地区和经济实力原来比英国小。2、英国有美国作为英语的“继承国”，法国没有那样强大的“继承国”。3、两次大战中法国失败，由于英语国家的帮助才传败为胜。4、信息化时代的科技新术语都来自说英语的美国，法国的科技力量无法跟它相比。这些原因不是短期所能改变。</p>
+<p>德国语言政策跟法国很不一样。德国商人乐意用英语做生意，这样能多销货物；德国科学家乐于用英语发表论文，这样能有更多读者。德国人说，我们争效果，不争语言。在欧洲，法语人口和德语人口的比例大约是7:9，法语人口少于德语人口，但是相差不大。欧洲各大企业在业务中使用的语言，除英语之外，原来使用法语超过德语，但是1996年的调查说明，情况改变了，德语第一次超过了法语。可见，法语的国际流通性正在萎缩。法语是否可能萎缩成一国之语呢？这是法国的重大忧虑。</p>
+<p>不过，法国没有认输，还在乐观地继续斗争。其实，法国没有人不学英语，法国本身事实上早已是双语国家了。</p>
+<p>下面略谈亚洲几个国家的双语情况。</p>
+<h2 id="四-东南亚的双语言">四、东南亚的双语言</h2>
+<p>“东南亚”是一个人文地理的新名词。这里有十个国家(新加坡、马来西亚、印度尼西亚、文莱、菲律宾、泰国、越南、柬埔寨、老挝、缅甸)，土地共计448万平方公里(接近半个中国)，人口共计4.26亿(超过中国的三分之一)，从印度洋到太平洋，横跨赤道的七分之一。这些国家组成“东南亚联盟”(东盟)，原来包括六个国家(新马印文菲泰)，在括大为十个国家(增加越柬老缅)。</p>
+<p>东南亚的西面有五个国家(泰缅越柬老)，都是佛教国家，语言彼此不同，文字用格自的印度式变体字母。泰国有传统的文字，以英语为第一外国语。缅甸原来是英国的殖民地，有简易的传统文字，几乎人人识字，以英语为中等和高等教育语言。越南在独立之后，废除了汉字，以拉丁化“国语字”为正式文字。柬埔寨和老挝有各自的传统文字。印度支那原来是法国殖民地，正在改用英语作为第一外国语，向其他东盟国家看齐。</p>
+<p>东南亚的东面也有五个国家(新菲马印文)，他们的语言和文字在二次战后有全新的发展。新加坡规定四种官方语言：英语不是外国语，而是全无官方语言；华语(普通话)为华人的官方语言，提倡“多说华语、少说方言”；塔米尔语为印度族的关方语言；马来语为马来人的官方语言，同时又是新加坡的国语，唱国歌用马来语。菲律宾规定拉丁化的他加禄语(Tagalog)为国语，以英语为行政和教育语言，英语的作用已深入民间生活。马来西亚和印度尼西亚大都信奉伊斯兰教，但是废除阿拉伯字母，采用拉丁字母；两国在独立之后共同采用标准马来语作为官方语言，原来拼写法并不相同(印尼用荷兰式，马来西亚用英国式)，后来统一了正词法，并且为新加坡和文莱所采用。印尼原为荷兰殖民地，通用荷兰语；独立后荷兰退出印尼，改以英语为第一外国语。</p>
+<p>东盟经济已经走上快速发展的道路。新加坡是“东亚四小虎”(港台韩新)之一。文莱是石油富国。泰国发展显著。马印正在起飞。菲律宾已经初具规模。这里有一片欣欣向荣的朝气，是举世瞩目的上升地区。</p>
+<p>东南亚旧称南洋，是华侨和华裔最多的地方，据说有三千万人以上，很多人已经“落地生根”，忘记了家乡语言，改用了当地的姓名。他们主要经营工商业，成为当地发展经济的重要动力。</p>
+<p>东南亚各国的政治制度不同(社会主义、军人专制、民主制度)，宗教有各自的传统(佛教、伊斯兰教、基督教)。但是，这些歧异并不妨碍他们团结起来共同发展经济，并且在共同的国际事务中采取协调的政策。</p>
+<p>东南亚一致实行英语和本国语言的双语言，方便相互联络和发展国际贸易，这是走上一体化道路的第一步。荷兰语和法语的退出，使东南亚实现了统一的英语化。英语在东南亚不仅在国际事务中发挥作用，而且部分地进入了民间生活。</p>
+<h2 id="五-印度的双语言">五、印度的双语言</h2>
+<p>印度原来是英国的殖民地。1950年独立之后，反对英帝国主义，同时反对英语。印度宪法规定“印度语”是唯一的国语，准备在此10年之后完全不用英语。</p>
+<p>但是，印度是一个9亿人口的大国，民族多、语言多、方言多、文字多，印地语只占人口的三分之一。印第语之外，印度不得不规定十一种“邦用”官方语言。印度低估了建设全国共同语言的困难，曾一度陷入语言问题的重大混乱。</p>
+<p>过去二百年间，英语是印度的行政语言和教育语言，国会开会用英语。这无法在可见的短时期内改变为本国语言。结果是，英语悄悄地继续流通，担当了全国共同语和国内各民族之间的纽带语言。</p>
+<p>到了70年代，印度的国际关系和语言感情发生了变化，英语从帝国主义的语言，变为有利可图的商品。长期以英语为教育语言，使印度受过教育的国民人人都懂英语。这个条件成为参加国际事务和进行国际贸易的有利条件。利用英语条件，印度每年争取联合国的国际会议多次在印度举行，借以赚取外汇。在宪法中没有地位的英语，现在公开地保留了无冕之王的地位，成为事实上唯一的全国共同语。印度是一个英语和本国(本邦)语言的双语国家。但是有人说，印度没有现代化，可见双语言无用。</p>
+<h2 id="六-日本的双语言">六、日本的双语言</h2>
+<p>日本善于吸收外来文化，择优而从，青出于蓝。一位日本教授说：在古代，日本学习中国一千年；在近代，日本学习西洋两千年；古代使用中文和日文，近代使用英语和日语。二次战后，日本的双语又有新发展。</p>
+<p>日本在一次战前，贸易利用英语，科技利用德语。二次战后，充分利用英语，引进新技术，发展国际贸易，把军事战败国变成经济战胜国。</p>
+<p>日本投降(1945)，美国将军麦克阿瑟(Douglas MacArthur)成为日本的“太上王”。他命令日本实行“语文平民化”。在逐步改革之后，实现了减少汉字数目，简化汉字笔画，改进假名字母的用法，使日文从汉字中间夹用少数假名，变为假名中夹用少数汉字。日本在明治维新(1868)时期已经普及国语，把文言改为白话，同时限制使用1945个常用汉字，此外以假名代替。中学生只学习1945个常用汉字，外加人名用字166个，合计2111字。小学六年级只学习996个汉字(比千字文还少四个)。大众小说只用800个汉字，其余用假名。日本的知识分子，除非研究中国历史和东方文化，一般只用2000个常用汉字。“语文平民化”的目的是：对人民大众，普及义务教育，提高文化水平；对知识分子，节省语文时间，更多地学习科技和实用知识。</p>
+<p>在美国的影响下，英语教学在日本逐步普及和提高。两种语言接触，必然发生“洋泾滨”现象。广东话的洋泾滨是有名的，可是跟日语的洋泾滨一比，就小巫见大巫了。日本的外来语原来很多，现在更多得无法形容了。日本学者说，日本学习中国文化时候，从汉语吸收大量外来语，时间久远，习以为常，已经忘记了那时外来语了。今天从英语吸收大量外来语，是日本吸收外来语的第二高潮。</p>
+<p>大半个世纪之前，日本放弃“意译”科技术语，改为“音译”科技术语，用片假名拼写。这使日本术语的读音接近国际化，但是片假名写成一长串，群众难学难记。有人主张改为意译，引起意译和音译的争论。一位日本教授说，音译固然有缺点，意译的缺点更大。</p>
+<p>日本人喜欢出国旅游。据说近来每年出国人次超过总人口的一半。世界各地的旅游点都能看见川流不息的日本人。旅游使日本人增进见识，提高文明。国际旅游需要国际共同语，旅游是推广英语的一种动力。</p>
+<p>日本的大企业要求职员英语过关，经常测试职员的英语水平。目的是使职员能够独自在国际互联网络上取得外国资料，提高生产技术。这是真正的进入信息化时代。日本的电脑普及率已经超过了欧洲。国际互联网络极大部分都用英语。英语成为在日本大企业中担任职务的必要条件。</p>
+<p>为了进一步提高英语水平，日本从1997起，小学生提前从三年极开始学习英语。西欧有些国家实行“扫除外语(英语)文盲”。日本还没有这样做，但是英语越来越被重视，乎要跟日语并驾齐驱了。日本有人感叹说：“日本”快要没有了，只剩下“Japan”了。</p>
+<h2 id="七-中国的双语言">七、中国的双语言</h2>
+<p>中国的双语言，原来是指推广普通话：从只会说方言，到又会普通话。普通话是学校的社会语言，方言是家乡和乡土语言，这是“国内双语言”。现在又有了第二种含义：从只会说普通话，到又会说英语，这是“国际双语言”。</p>
+<p>民国元年(1912)开始，我国兴办新式学校，以“国英算”为三门主课，“国英”(国文和英文)就是国际双语言。但是当时只有少数人上学，课程要求很低，还没有双语言的概念。</p>
+<p>解放之后，俄语一度成为我国的主要外语。改革开放以来，事实上已经恢复了以英语为第一外国语。青年们热心出国留学，主要是去美国，一股英语热在青年中自动燃起。但是人数很少，不能说我国也开始了国际双语言。</p>
+<p>改革开放以来，我国重视教育，提出“科技是第一生产力”的口号。建水坝，筑铁路，兴工业，促外贸，向建设现代化国家的道路前进。我国的现代化要追赶俩个时代，工业化时代和信息化时代，任务非常艰巨。现代化的基础是教育，教育的工具是语言。我们还没有来得及考虑双语言政策问题，但双语言是现代化无法避免的需要。“国内双语言”还没有实现，能够开始进行“国际双语言”吗？</p>
+<p>一方面改进汉语教学，一方面提高英语水平，是可能的吗？可能的。但是要革除成规，借鉴先进，去掉无效课程，减轻学习负担，提高实用水平。如果教育水平不能赶上先进国家，要想建成跟先进国家相颉颃的现代化国家，就难于想象了。</p>
+<p>目前，我国科学院的各个自然科学研究所，以及有条件的大学和机构，已经利用多媒体电脑，接上国际互联网络，随时从美国国会图书馆和其他资料库取阅科技和文化资料。在电脑上遇到不懂的英语词汇，可以利用电脑词典(例如Roboword)查看中文意义，一按鼠标，立刻查到，实在方便。这是我国进入国际互联网络和实行双语言的起点。</p>
+<p>双语言不是独立于社会的附加物，而是现代化社会有机体的一个部分。双语言是一种现代化的指标。从双语言的水平，可以在一定条件下测知国家现代化的程度。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Ishikawa Diagram]]></title>
+        <id>https://zhoulion.netlify.app/post/ishikawa-diagram/</id>
+        <link href="https://zhoulion.netlify.app/post/ishikawa-diagram/">
+        </link>
+        <updated>2022-06-12T12:50:55.000Z</updated>
+        <content type="html"><![CDATA[<p><code>Ishikawa Diagram</code> 是一个非常有用的工具，它通过识别问题的根源的方式，来协助你解决问题。该图表是由日本一位学者 Kaoru Ishikawa（石川耀） 发明的，所以又被称为「石川图」，又因其酷似鱼的骨架，所以又被称为 Fishbone Diagram — 鱼骨图。下面是它的结构。</p>
+<figure data-type="image" tabindex="1"><img src="https://zhoulion.netlify.app/post-images/1655063937259.png" alt="" loading="lazy"></figure>
+<h2 id="如何使用">如何使用：</h2>
+<p>可以通过一些简单的步骤来构建这样的一个图表。</p>
+<ul>
+<li>定义问题<br>
+一开始，给一个问题下定义，然后在问题的右侧画一条横线，当然左侧右侧无所谓，依据自己的偏好即可。<br>
+下一步我们将在这条线上添加一些其它因素。</li>
+<li>指出影响因素或者类别<br>
+列出你所要解决的问题的影响因素或者类别，把它们逐一标绘到主线的两侧。<br>
+比如，你可以列出一些具体的因素，建议使用常用的分类名词：人员、设备、方法、预算、素材以及环境等。<br>
+这种分类对于处理复杂问题有奇效，并且可以从不同的角度看待它们。</li>
+<li>找到与各个因素相关的根源<br>
+自问「为什么会这样?」，把每一个想法在与之相关的因子下用一条线写下来。<a href="https://www.notion.so/fcd5a359c8cd4e5ab035b9ec3600eff7">第一原则思维</a>在这里很有用，包括“五个为什么”方法。请记住，问题的根本原因可能不止一个，而是多个。所以，捕捉所有可能解释这个问题的东西是很重要的，即使只是部分解释。<br>
+自此，你就有了一个完整的图表，不过这还不能得到最终的问题答案。</li>
+<li>分析图表<br>
+最重要的一步便在于查看所有可能的根源，去分析它们。鱼骨图不提供分析问题的方法论，也就是说，图表已经为你呈现出所有你认为是问题根源的因素，接下来就看你怎么分析。<br>
+具体问题具体分析，你可以收集这些根源的数据和证据来推断其严重性，或者也可以直接将某一因素看作最严重的，先直接解决它查看是否有效。这些都依赖你定位问题和识别潜在原因的方法。</li>
+</ul>
+<h2 id="参考">参考</h2>
+<p><a href="https://youtu.be/mLvizyDFLQ4">&quot;How to create cause-and-effect diagrams&quot; by HarvardX (Video)</a></p>
+<p><a href="https://asq.org/quality-resources/fishbone">&quot;Fishbone Diagram&quot; by American Society for Quality</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[如何打开生产环境的 Vue Devtools？]]></title>
+        <id>https://zhoulion.netlify.app/post/ru-he-da-kai-sheng-chan-huan-jing-de-vue-devtools/</id>
+        <link href="https://zhoulion.netlify.app/post/ru-he-da-kai-sheng-chan-huan-jing-de-vue-devtools/">
+        </link>
+        <updated>2021-08-15T01:30:03.000Z</updated>
+        <content type="html"><![CDATA[<p>「<br>
+不要吹灭你的灵感和你的想象力; 不要成为你的模型的奴隶。 ——文森特・梵高<br>
+」</p>
+<p>打开掘金首页，nuxt 图标亮了起来 🐒  那就借掘金的宝地，记录一下如何在生产环境下，开启 vue 项目的 Devtools 调试工具。<br>
+首先，我们要知道 Vue 调试工具的启动流程</p>
+<h2 id="vue-是怎么开启-devtools-插件的">Vue 是怎么开启 Devtools 插件的？</h2>
+<p><img src="https://zhoulion.netlify.app/post-images/1628991158431.png" alt="" loading="lazy"><br>
+这段是 Vue2 源码的 9095 行左右的代码：  <code>config.devtools</code> 是声明在 Vue 构造函数上的配置项，在开发环境默认值为 true，而在生产环境默认为 false，表示不开启，因此我们平常只能在开发环境上开启调试工具。</p>
+<p>🕵️ 聪明的你一定也想到了，开启 Devtools 其实只需要一行关键代码</p>
+<p><code>devtools.emit('init', Vue);</code></p>
+<h2 id="开启-devtools-插件的关键代码">开启 Devtools 插件的关键代码</h2>
+<p>理论上，我们只要在浏览器控制台执行这一行代码 <code>devtools.emit('init', Vue);</code>，便能开启 Devtools 插件。但是里面有两个未知因素 -- <code>devtools</code> 和 <code>Vue</code></p>
+<h3 id="怎样获取-devtools">怎样获取 devtools</h3>
+<p>顺藤摸瓜，我在源码中找到了插件 devtools 对应的全局变量： <code>__VUE_DEVTOOLS_GLOBAL_HOOK__</code></p>
+<h3 id="怎么获取-vue">怎么获取 Vue</h3>
+<p>为什么说 Vue 也是未知因素呢？是因为经过 webpack 打包后代码，其中 Vue 被塞进 chunk 里，不会暴露全局变量了。不过好在每一个由 Vue 组件生成的元素都留了个「后门」-- <strong>vue</strong>，该属性值指向元素的 vue 实例。 通过审查元素，我找到了掘金首页的根元素<code>「&lt;div id=&quot;__nuxt&quot;&gt;...&lt;/div&gt;」 </code></p>
+<p>根节点元素的 <strong>vue</strong> 所指向的vm 实例，正是我们在 main 函数中的 new Vue({...}).$mount(target) 。所以根据 <code>Javascript</code> 原型链法则，可推导出：<code>若存在 vm = new Vue()，则 Vue = vm.constructor</code><br>
+Vue 到手👋。</p>
+<h2 id="求解">求解</h2>
+<p>现在可以将两个未知数代入到这个「方程式」里执行了，下面是控制台要执行的代码 先声明这两个变量：</p>
+<pre><code class="language-js">const devtools = window.__VUE_DEVTOOLS_GLOBAL_HOOK__;
+// 小tips，在控制台 $ 可替代 document.querySelector
+// `$('#__nuxt')` 是掘金站点的 root 节点。需要注意的是，不同的项目 root 节点有所不同
+const Vue = $('#__nuxt').__vue__.constructor;
+</code></pre>
+<p>再依次执行：</p>
+<pre><code class="language-js">// 这个也是额外的知识点 @see https://cn.vuejs.org/v2/api/#devtools
+Vue.conifg.devtools = true;
+
+devtools.emit('init', Vue);
+</code></pre>
+<p>执行之后，需要关闭控制台再重新打开，才能看到出现了 Vue 调试面板。</p>
+<p>参考：<br>
+<a href="https://cn.vuejs.org/v2/api/#devtools">Vue api - devtools</a><br>
+<a href="https://github1s.com/vuejs/vue/blob/HEAD/dist/vue.js">vue.js — vuejs/vue</a></p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[变量提升和暂时性死区]]></title>
+        <id>https://zhoulion.netlify.app/post/bian-liang-ti-sheng-he-zan-shi-xing-si-qu/</id>
+        <link href="https://zhoulion.netlify.app/post/bian-liang-ti-sheng-he-zan-shi-xing-si-qu/">
+        </link>
+        <updated>2021-08-12T01:53:55.000Z</updated>
+        <content type="html"><![CDATA[<p>😣<code>Variable hoisting</code> <code>Temporal Dead Zone</code></p>
+<blockquote>
+<p>对于一个变量，没有任何理由多此一举地在定义它之前去调用它</p>
+</blockquote>
+<h2 id="变量提升-variable-hoisting">变量提升 (Variable hoisting)</h2>
+<p>变量提升可以简单地理解为，变量声明被移动到函数块的最顶端。<br>
+就像下面的代码</p>
+<pre><code class="language-js">function test() {
+    console.log(myVar);
+    var myVar = 10;
+    console.log(myVar);
+}
+test();
+
+// Output
+//&gt; undefined
+//&gt; 10
+</code></pre>
+<p>执行的时候，变量被解释器偷偷地提升了</p>
+<pre><code class="language-js">function test() {
+    var myVar;
+    console.log(myVar);
+    myVar = 10;
+    console.log(myVar);
+}
+test();
+</code></pre>
+<h2 id="变量提升的简单流程">变量提升的简单流程</h2>
+<p>Javascript 执行代码都要分两个阶段，「创建阶段」(creation phase) 和 「执行阶段」(execution phase)。</p>
+<ul>
+<li>创建阶段：函数调用前，JS 引擎进行上下文的扫描，收集函数能访问的数据范围，即<strong>作用域</strong>，并且专门开辟一块内存空间，用来存储函数的 <code>function scope</code> 函数作用域，解释器将进行它们的值初始化为 <code>undefined</code>。</li>
+<li>执行阶段：JS 引擎在函数执行期间，是从这块内存空间里，去读去写这里面的数据。<br>
+所以看起来就好像所有的变量声明被提升了一样。</li>
+</ul>
+<h2 id="let-const">let &amp; const</h2>
+<p>let 和 const 是 es6 的新特性，值得注意的是，let 和 const 所声明的变量，似乎不会被提升了。</p>
+<pre><code class="language-js">function test() {
+    console.log(myVar);
+    let myVar = 10;
+    console.log(myVar);
+}
+test(); // Output
+//\&gt; VM94:2 Uncaught ReferenceError: Cannot access 'myVar' before initialization
+//    at test (&lt;anonymous&gt;:2:14)
+//   at &lt;anonymous&gt;:6:1
+</code></pre>
+<p><code>reference error</code>  报错：作用域范围错误<br>
+相同的代码，我们使用 <code>let</code> 或 <code>const</code> 去替代 <code>var</code> 去声明一个变量，我们不能在变量声明之前去访问它了。<br>
+这就引申出<strong>暂时性死区（Temporal Dead Zone）</strong> 的概念了。</p>
+<h2 id="暂时性死区-temporal-dead-zone">暂时性死区 (Temporal Dead Zone)</h2>
+<p>我们将暂时性死区，定义为<strong>变量出现在作用域范围内，但是却不能被访问的状态</strong>。<br>
+所以，这是不是意味这 <code>let</code> 和 <code>const</code> 不会在创建阶段，加入到那块内存呢？<br>
+其实都会加入到内存中，进行一个初始化。只不过<code>var</code> 所声明的变量会被初始化为 <code>undefined</code>  ，而 <code>let</code> 和 <code>const</code> 不被赋值（甚至连 <code>undefined</code> 都不是）</p>
+<pre><code class="language-js">function test() {
+    // 随意打印一个未曾定义的变量
+    console.log(typeof myUndefinedVariable);
+    // 打印以下 let 声明的变量
+    console.log(typeof myVar);
+    let myVar = 10;
+}
+test();// Output
+\&gt; undefined
+\&gt; VM114:3 Uncaught ReferenceError: Cannot access 'myVar' before initialization
+    at test (&lt;anonymous&gt;:3:10)
+    at &lt;anonymous&gt;:6:1
+</code></pre>
+<h2 id="思考">思考🤔</h2>
+<p>暂时性死区似乎是引入了 bug？其实这是 ES6 有意而为之。实际上就是「无规矩不成方圆」。<br>
+JS 这门语言如果一味地追求灵活性，「纵容」开发者写出不合乎常理的代码，却不会对其进行相应的「惩罚」，长久下去，将阻碍 JS 标准的制定。<br>
+这就是 ES6 引入 let 和 const 的原因。对于一个变量，没有任何理由多此一举地在定义它之前去调用它。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[40 个有趣的 CSS 网站]]></title>
+        <id>https://zhoulion.netlify.app/post/40-ge-you-qu-de-css-wang-zhan/</id>
+        <link href="https://zhoulion.netlify.app/post/40-ge-you-qu-de-css-wang-zhan/">
+        </link>
+        <updated>2021-08-12T01:51:24.000Z</updated>
+        <content type="html"><![CDATA[<ul>
+<li>
+<p>🌐  基础学习</p>
+<ul>
+<li><a href="https://cssreference.io/">CSS 参考书</a></li>
+<li><a href="https://chokcoco.github.io/CSS-Inspiration/#/">CSS 灵感</a></li>
+<li><a href="https://www.awwwards.com/sites/zero-impact">UI 设计师的灵感源泉</a></li>
+<li><a href="https://htmlcheatsheet.com/css/">交互式在线 CSS 速记表</a></li>
+<li><a href="https://zh.learnlayout.com/">学习CSS布局</a></li>
+<li><a href="https://css-tricks.com/">CSS-Tricks</a></li>
+<li><a href="https://web.dev/learn/css/">Learn CSS</a>   -- 谷歌家 <a href="http://web.dev">web.dev</a> 上的 CSS 教学专栏</li>
+<li><a href="https://www.w3schools.com/howto/">W3Schools How TO - Code snippets for HTML, CSS and JavaScript</a> --- W3 How To 学习如何实现常见的页面组件</li>
+<li><a href="https://codemyui.com/tag/pure-css/">450 多个纯 CSS 实现的 UI 设计 Ξ ℂ𝕠𝕕𝕖𝕄𝕪𝕌𝕀</a></li>
+</ul>
+</li>
+<li>
+<p>🧚  CSS 动画<br>
+纯 CSS 动画，这里不包含 JS 动画库</p>
+<ul>
+<li><a href="https://animate.style/">Animate.css | A cross-browser library of CSS animations.</a> --- css 动画集</li>
+<li><a href="https://tholman.com/obnoxious/">Obnoxious.css</a> --- 不过脑子的动效，不过看起来很“生猛”</li>
+<li><a href="https://elrumordelaluz.github.io/csshake/">CSS 抖动特效</a></li>
+<li><a href="https://animxyz.com/">CSS 三维变换动画</a></li>
+<li><a href="https://animista.net/play/">Animista - CSS Animations on Demand</a> --- CSS 动画集，可自由调节动画参数，生成代码片段</li>
+<li><a href="https://ianlunn.github.io/Hover/">Hover.css - A collection of CSS3 powered hover effects</a>  --- CSS 鼠标悬浮动画</li>
+<li><a href="https://www.minimamente.com/project/magic/">Magic CSS animations</a> --- 一款非常适合做转场动画的 CSS 动画库</li>
+</ul>
+</li>
+<li>
+<p>🕹️  教学游戏</p>
+<ul>
+<li><a href="https://cssgridgarden.com/">Grid Garden</a> --- CSS 萝卜浇水，学习网格布局</li>
+<li><a href="http://www.flexboxdefense.com/">Flexbox Defense</a> --- CSS 塔防游戏，学习 flex 布局</li>
+<li><a href="https://flukeout.github.io/">CSS Diner</a> --- CSS 干饭，练习 CSS 选择器</li>
+<li><a href="https://flexboxfroggy.com/">Flexbox Froggy</a> --- 送小青蛙回家，学习 flex 布局</li>
+</ul>
+</li>
+<li>
+<p>🎰  代码生成</p>
+<ul>
+<li>
+<p><a href="https://cssboxshadow.com/">Box Shadow</a> --- 盒子阴影生成器</p>
+</li>
+<li>
+<p><a href="https://glassgenerator.netlify.app/">Glass Morphism</a> --- 磨砂透明效果</p>
+</li>
+<li>
+<p><a href="https://coolbackgrounds.io/">Cool Backgrounds</a> --- 酷酷的背景图</p>
+</li>
+<li>
+<p><a href="https://www.pixelartcss.com/">Pixel Art to CSS</a> --- 自定义像素素材</p>
+</li>
+<li>
+<p><a href="https://stripesgenerator.com/">Pure CSS Stripes Generator - No Flash, No Image, ONLY CSS</a> --- 布条背景图生成器</p>
+</li>
+<li>
+<p><a href="https://svgwave.in/">Svg Wave - A free &amp; beautiul gradient SVG wave Generator.</a> --- 波纹生成器</p>
+</li>
+<li>
+<p><a href="https://numl.design/theme-generator">CSS Color Theme Generator by Numl.Design</a> --- numl design 的主题生成器</p>
+</li>
+<li>
+<p><a href="https://color.adobe.com/zh/create/color-accessibility">adobe 色彩拾取工具</a> --- adobe 针对色盲用户可访问性，提供的一个色彩拾取工具</p>
+</li>
+<li>
+<p><a href="https://9elements.github.io/fancy-border-radius/">Fancy Border Radius Generator</a> --- 圆角的新玩法</p>
+</li>
+<li>
+<p>根据上面的圆角，我们可以画出一滴水珠💦 <a href="https://codepen.io/prathkum/pen/xxEMoZy">https://codepen.io/prathkum/pen/xxEMoZy</a></p>
+</li>
+<li>
+<p><a href="https://accordionslider.com/">CSS Accordion Slider Generator</a> --- 纯 CSS 百叶窗</p>
+</li>
+<li>
+<p><a href="https://grid.layoutit.com/">Layoutit Grid - CSS Grids layouts made easy!</a> --- 网格布局生成器</p>
+</li>
+<li>
+<p><a href="https://csslayout.io/">CSS Layout ∙ A collection of popular layouts and patterns made with CSS</a> --- 纯 CSS 的页面元素集</p>
+</li>
+<li>
+<p><a href="https://keyframes.app/animate/">Keyframes.app | CSS Toolbox</a> --- CSS 动画生成器</p>
+</li>
+<li>
+<p><a href="https://cssanimate.com/">CSS3 Keyframes Animation Generator</a> --- 又一个 CSS 动画生成器</p>
+</li>
+<li>
+<p><a href="https://www.cssfiltergenerator.com/">CSSfiltergenerator.com</a> --- CSS 滤镜</p>
+</li>
+<li>
+<p><a href="https://imageslidermaker.com/">Image Slider Maker</a> --- 轮播生成器</p>
+</li>
+<li>
+<p><a href="https://www.30secondsofcode.org/css/p/1">CSS Snippets - 30 seconds of code</a> --- 30 秒代码片段 — css 篇</p>
+</li>
+</ul>
+</li>
+<li>
+<p>🎨  色彩搭配</p>
+<ul>
+<li><a href="https://colorhunt.co/">Color Palettes for Designers and Artists - Color Hunt</a></li>
+<li><a href="https://mycolor.space/">ColorSpace - Color Palettes Generator and Color Gradient Tool</a></li>
+<li><a href="https://cssgradient.io/">CSS Gradient - Generator, Maker, and Background</a> --- CSS 渐变色</li>
+<li><a href="https://clrs.cc/">Colors - A nicer color palette for the web.</a></li>
+</ul>
+</li>
+</ul>
+<h2 id="参考">参考：</h2>
+<p><a href="https://github.com/jobbole/awesome-css-cn">https://github.com/jobbole/awesome-css-cn</a> CSS 资源大全中文版</p>
+<p><a href="https://github.com/awesome-css-group/awesome-css">https://github.com/awesome-css-group/awesome-css</a> Awesome CSS</p>
+<p><a href="https://juejin.cn/post/6903712420485660685">https://juejin.cn/post/6903712420485660685</a> 一些CSS特效网站整理</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[TypeScript 中的内置范型]]></title>
+        <id>https://zhoulion.netlify.app/post/typescript-zhong-de-nei-zhi-fan-xing/</id>
+        <link href="https://zhoulion.netlify.app/post/typescript-zhong-de-nei-zhi-fan-xing/">
+        </link>
+        <updated>2021-08-12T00:16:15.000Z</updated>
+        <content type="html"><![CDATA[<p><code>Typescript</code> 的 lib 文件夹中，定义了 <code>EcmaScript</code> 从 es5 到 esnext 的各个 es 类型签名，还包括 dom。其中，在 <code>lib/lib.es5.d.ts</code> 文件中，还定义了 ts 自己内置的范型工具类型。</p>
+<p>下面是从中提取的代码片段，针对注释进行的简单翻译.</p>
+<pre><code class="language-typescript">/**
+ * 让 T 类型中的所有的属性都是可选
+ */
+type Partial&lt;T&gt; = {
+    [P in keyof T]?: T[P];
+};
+
+/**
+ * 使 T 类型中所有属性都是必需的
+ */
+type Required&lt;T&gt; = {
+    [P in keyof T]-?: T[P];
+};
+
+/**
+ * 使 T 类型中所有的属性只读
+ */
+type Readonly&lt;T&gt; = {
+    readonly [P in keyof T]: T[P];
+};
+
+/**
+ * 就是从 T 类型中，选择一组键在 K 中的并集
+ * - Pick&lt;T, K&gt; 就是拾取的意思，就是从 T 类型对象中拾取部分的属性, 其中 K 是字符枚举类型
+ */
+type Pick&lt;T, K extends keyof T&gt; = {
+    [P in K]: T[P];
+};
+
+/**
+ * 构建一个类型，其中 K 属性 key，对应的属性值是 T 类型
+ * 这个理解起来很抽象，🌰 vue 的 option api 用到了很多 Record&lt;T, K&gt; 范型
+ * 如 components?: Record&lt;string, Component&gt;
+      directives?: Record&lt;string, Directive&gt;
+ */
+type Record&lt;K extends keyof any, T&gt; = {
+    [P in K]: T;
+};
+
+/**
+ * 从T中排除那些可分配给U的类型
+ * 主要用途就是从 T 类型中提取不在 U 枚举中的 key，作为一个新的枚举
+ */
+type Exclude&lt;T, U&gt; = T extends U ? never : T;
+
+/**
+ * 从 T 类型中提取那些可分配给 U 的类型
+ * 从源码中也能看出来，它的使用场景和 Exclude 刚好相反。
+ * 目的和 Pick 类似，但是 Pick 关注于提取一个新的对象类型，而 Extract 在于提取枚举类型
+ */
+type Extract&lt;T, U&gt; = T extends U ? T : never;
+
+/**
+ * 构建一个类型，提取 T 类型中的 K 属性的反集
+ * Omit 意为删除， 它和 Pick 作用相反，把对象 T 中的 K 属性都排除掉。
+ */
+type Omit&lt;T, K extends keyof any&gt; = Pick&lt;T, Exclude&lt;keyof T, K&gt;&gt;;
+
+/**
+ * 排除 T 类型中所有的 null 和 undefined
+ */
+type NonNullable&lt;T&gt; = T extends null | undefined ? never : T;
+
+/**
+ * 获取一个函数类型的参数类型，放在一个 tuple 元组内
+ * 这样提取一个方法的入参类型，可以很方便的去定义到另一个函数的参数类型
+ */
+type Parameters&lt;T extends (...args: any) =&gt; any&gt; = T extends (...args: infer P) =&gt; any ? P : never;
+
+/**
+ * 获取一个构造函数类型的参数类型，放在一个 tuple 元组内
+ * 如果我们的构造函数是以 class 的范式去书写的，那么这个辅助范型就很有用
+ */
+type ConstructorParameters&lt;T extends abstract new (...args: any) =&gt; any&gt; = T extends abstract new (...args: infer P) =&gt; any ? P : never;
+
+/**
+ * 返回一个函数类型的返回值类型
+ * 很容易理解。结合 Parameters 就可以把一个以后的函数类型拆开来，较少很多重复的类型声明
+ */
+type ReturnType&lt;T extends (...args: any) =&gt; any&gt; = T extends (...args: any) =&gt; infer R ? R : any;
+
+/**
+ * 获取一个构造函数类型的返回值类型
+ * 这个真的很少用到，因为构造函数的类型返回值类型，往往就是构造函数本身。
+ * 除非一种情形，构造函数里返回了一个新的对象。因为根据 JS 对构造函数返回值的规定，构造函数的 return 值，通常会被忽略，除非是高级类型，如对象，数组
+ */
+type InstanceType&lt;T extends abstract new (...args: any) =&gt; any&gt; = T extends abstract new (...args: any) =&gt; infer R ? R : any;
+
+/**
+ * Convert string literal type to uppercase
+ */
+type Uppercase&lt;S extends string&gt; = intrinsic;
+
+/**
+ * Convert string literal type to lowercase
+ */
+type Lowercase&lt;S extends string&gt; = intrinsic;
+
+/**
+ * Convert first character of string literal type to uppercase
+ */
+type Capitalize&lt;S extends string&gt; = intrinsic;
+
+/**
+ * Convert first character of string literal type to lowercase
+ */
+type Uncapitalize&lt;S extends string&gt; = intrinsic;
+</code></pre>
+]]></content>
+    </entry>
+</feed>
